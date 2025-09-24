@@ -16,9 +16,12 @@
 
         public DateTime? LastUpdateAt { get; set; }
 
+        public string DiseaseCode { get; set; }
+
         public DiseaseBaseResponse()
         {
             DiseaseName = "";
+            DiseaseCode = "";
         }
     }
 }

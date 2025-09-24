@@ -26,7 +26,7 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> CMN_CreateRoleType(string cn, int roleTypeId, string roleType, int companyId, int username, int action);
 
-        Task<BaseResult> CMN_CreateDisease(string cn, int diseaseId, string diseaseName, int companyId, int username, int action);
+        Task<BaseResult> CMN_CreateDisease(string cn, int diseaseId, string diseaseName, int companyId, int username, int action, string diseaseCode);
 
         Task<BaseResult> CMN_CreateSponsorType(string cn, int id, string sponsorType, int companyId, int username, int action);
 
@@ -85,6 +85,11 @@ namespace GMS.Data.DataHelper
         Task<BaseResult> CMN_CreateGender(string cn, int id, string gender, string comment, int companyId, int username, int action);
 
         Task<BaseResult> CMN_CreateRace(string cn, int id, string race, string comment, int companyId, int username, int action);
+
+        Task<PayloadResult?> CMN_GetCROList(string cn, int companyId);
+
+        Task<BaseResult> CMN_CreateCRO(string cn, int id, string cro, string comment, int companyId, int username, int action);
+
         #endregion
 
         #region PRJ...

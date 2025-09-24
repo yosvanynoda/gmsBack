@@ -48,7 +48,7 @@ namespace GMS.Business.CMN
                 };
             }
 
-            var result = await _dataHelper.CMN_CreateDisease(cn, request.DiseaseId, request.DiseaseName, request.CompanyId, request.Username, request.Action);
+            var result = await _dataHelper.CMN_CreateDisease(cn, request.DiseaseId, request.DiseaseName, request.CompanyId, request.Username, request.Action, request.DiseaseCode);
 
             return new BaseResponse
             {
@@ -345,7 +345,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No disease found."
                 };
             }
 
@@ -435,7 +435,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No role type found."
                 };
             }
 
@@ -465,7 +465,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No site found."
                 };
             }
 
@@ -495,7 +495,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No sponsor found."
                 };
             }
 
@@ -525,7 +525,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No staff found."
                 };
             }
 
@@ -585,7 +585,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No task type found."
                 };
             }
 
@@ -615,7 +615,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No task found."
                 };
             }
 
@@ -645,7 +645,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No race found."
                 };
             }
 
@@ -675,7 +675,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No language found."
                 };
             }
 
@@ -705,7 +705,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No gender found."
                 };
             }
 
@@ -735,7 +735,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No Ethnicity found."
                 };
             }
 
@@ -765,7 +765,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No document type found."
+                    Message = "No allergy found."
                 };
             }
 
@@ -795,7 +795,7 @@ namespace GMS.Business.CMN
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "No medication type found."
+                    Message = "No medication found."
                 };
             }
 
@@ -806,6 +806,58 @@ namespace GMS.Business.CMN
                 Success = result?.Result == 0,
             };
         }
+
+        public async Task<BaseResponse> GetCROList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetCROList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No CRO found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result.Data,
+                Message = result.ResultMessage,
+                Success = result?.Result == 0,
+            };
+        }
+
+        public async Task<BaseResponse> CreateCRO(string cn, CreateCRORequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.CRO))
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "CRO cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_CreateEthnicity(cn, request.Id, request.CRO, request.Comment, request.CompanyId, request.Username, request.Action);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
 
         public async Task<BaseResponse> CreateEthnicity(string cn, CreateEthnicityRequest request)
         {

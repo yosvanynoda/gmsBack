@@ -11,5 +11,7 @@
         public int Action { get; set; } = 0;
 
         public int Username { get; set; } = 0;
+
+        public string DiseaseCode { get; set; } = string.Empty;
     }
 }

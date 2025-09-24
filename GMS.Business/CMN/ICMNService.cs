@@ -71,5 +71,9 @@ namespace GMS.Business.CMN
         Task<BaseResponse> CreateRace(string cn, CreateRaceRequest request);
 
         Task<BaseResponse> CreateLanguage(string cn, CreateLanguageRequest request);
+
+        Task<BaseResponse> GetCROList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> CreateCRO(string cn, CreateCRORequest request);
     }
 }

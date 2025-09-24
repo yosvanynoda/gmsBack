@@ -75,7 +75,7 @@ namespace GMS.Data.DataHelper
 
         }
 
-        public async Task<BaseResult> CMN_CreateDisease(string cn, int diseaseId, string diseaseName, int companyId, int username, int action)
+        public async Task<BaseResult> CMN_CreateDisease(string cn, int diseaseId, string diseaseName, int companyId, int username, int action, string diseaseCode)
         {
             try
             {
@@ -108,6 +108,8 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@UserName", username, DbType.Int32, ParameterDirection.Input);
 
                 parameters.Add("@Action", action, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@DiseaseCode", diseaseCode, DbType.String, ParameterDirection.Input, size: 150);
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -1794,5 +1796,114 @@ namespace GMS.Data.DataHelper
                 };
             }
         }
+
+        public async Task<PayloadResult?> CMN_GetCROList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<CMNCRO>(cn, "CMN_GetCRO", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResult> CMN_CreateCRO(string cn, int id, string cro, string comment, int companyId, int username, int action)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (string.IsNullOrEmpty(cro))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Contract research org is null or empty."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@Id", id, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@CRO", cro, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@Comment", comment, DbType.String, ParameterDirection.Input, size: 400);
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@UserName", username, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Action", action, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "CMN_CrudCRO", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Contract research org created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
     }
+
+
 }

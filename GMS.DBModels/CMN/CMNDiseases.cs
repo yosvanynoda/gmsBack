@@ -10,9 +10,13 @@
         public bool Active { get; set; }
         public DateTime? LastUpdateAt { get; set; }
 
+        public string DiseaseCode { get; set; }
+
         public CMNDiseases()
         {
             DiseaseName = "";
+
+            DiseaseCode = "";
         }
     }
 }
