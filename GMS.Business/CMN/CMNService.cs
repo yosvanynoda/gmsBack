@@ -848,7 +848,7 @@ namespace GMS.Business.CMN
                 };
             }
 
-            var result = await _dataHelper.CMN_CreateEthnicity(cn, request.Id, request.CRO, request.Comment, request.CompanyId, request.Username, request.Action);
+            var result = await _dataHelper.CMN_CreateCRO(cn, request.Id, request.CRO, request.Comment, request.CompanyId, request.Username, request.Action);
 
             return new BaseResponse
             {
