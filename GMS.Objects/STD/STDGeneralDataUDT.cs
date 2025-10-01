@@ -43,5 +43,9 @@
         public DateTime EndDate { get; set; } = DateTime.MinValue;
 
         public int StudioStatus { get; set; } = 0;
+
+        public int DiseaseId { get; set; } = 0;
+
+        public int CROId { get; set; } = 0;
     }
 }
