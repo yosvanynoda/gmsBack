@@ -8,7 +8,7 @@
 
         public string ContactPhone { get; set; } = string.Empty;
 
-        public string ContactRelation { get; set; } = string.Empty;
+        public int ContactRelation { get; set; } = 0;
 
         public int CompanyId { get; set; } = 0;
 

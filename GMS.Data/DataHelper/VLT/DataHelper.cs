@@ -46,7 +46,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "VLT_CreateVolunteerData", parameters);
 

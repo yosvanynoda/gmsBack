@@ -2,6 +2,7 @@ using GMS.Business.CMN;
 using GMS.Business.PRJ;
 using GMS.Business.STD;
 using GMS.Business.SUB;
+using GMS.Business.VLT;
 using GMS.Data.DataHelper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -34,7 +35,7 @@ builder.Services.AddScoped<ISTDService, STDService>();
 builder.Services.AddScoped<ISUBService, SUBService>();
 builder.Services.AddScoped<ICMNService, CMNService>();
 builder.Services.AddScoped<IPRJService, PRJService>();
-
+builder.Services.AddScoped<IVLTService, VLTService>();
 
 
 

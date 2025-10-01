@@ -2,7 +2,8 @@
 using GMS.Objects.VLT;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GMS.Services.Controllers.v1.VLT
+
+    namespace GMS.Services.Controllers.V1.VLT
 {
     //[Route("api/[controller]")]
     [ApiController]

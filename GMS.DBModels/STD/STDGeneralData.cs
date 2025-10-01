@@ -53,6 +53,8 @@ namespace GMS.DBModels.STD
 
         public DateTime? EndDate { get; set; }
 
+        public int CroId { get; set; }
+
         public STDGeneralData()
         {
             Code = "";
