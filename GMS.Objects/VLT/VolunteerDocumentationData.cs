@@ -2,19 +2,19 @@
 {
     public class VolunteerDocumentationData
     {
-        public int VolunteerId { get; set; } = 0;
+        public int VId { get; set; } = 0;
 
         public int DocumentTypeId { get; set; } = 0;
 
-        public string DocumentName { get; set; }
+        public string DocName { get; set; }
 
-        public DateTime DocumentDate { get; set; }
+        public DateTime DocDate { get; set; }
 
-        public string DocumentVersion { get; set; }
+        public string DocVersion { get; set; }
 
-        public bool DocumentActive { get; set; }
+        public bool DocActive { get; set; }
 
-        public string DocumentNotes { get; set; }
+        public string Notes { get; set; }
 
         public int CompanyId { get; set; } = 0;
 
@@ -26,11 +26,11 @@
 
         public VolunteerDocumentationData()
         {
-            DocumentName = "";
+            DocName = "";
 
-            DocumentVersion = "";
+            DocVersion = "";
 
-            DocumentNotes = "";
+            Notes = "";
         }
     }
 }

@@ -6,7 +6,7 @@
 
         public List<VolunteerAllergyData> VolunteerAllergyData { get; set; } = [];
 
-        public List<VolunteerDiseaseData> VolunteerDiseaseData { get; set; } = [];
+        public List<VolunteerDeseaseData> VolunteerDiseaseData { get; set; } = [];
 
         public List<VolunteerDocumentationData> VolunteerDocumentationData { get; set; } = [];
 

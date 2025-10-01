@@ -2,7 +2,7 @@
 {
     public class VolunteerAllergyData
     {
-        public int VolunteerId { get; set; } = 0;
+        public int VId { get; set; } = 0;
 
         public int AllergyId { get; set; } = 0;
 

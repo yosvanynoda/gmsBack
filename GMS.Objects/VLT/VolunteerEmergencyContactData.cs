@@ -2,7 +2,7 @@
 {
     public class VolunteerEmergencyContactData
     {
-        public int VolunteerId { get; set; } = 0;
+        public int VoluntierId { get; set; } = 0;
 
         public string ContactName { get; set; } = string.Empty;
 

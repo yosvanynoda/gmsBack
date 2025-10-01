@@ -2,7 +2,7 @@
 {
     public class VolunteerMedicationData
     {
-        public int VolunteerId { get; set; } = 0;
+        public int VId { get; set; } = 0;
 
         public string DrogName { get; set; }
 

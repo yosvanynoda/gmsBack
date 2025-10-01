@@ -1,8 +1,8 @@
 ﻿namespace GMS.Objects.VLT
 {
-    public class VolunteerDiseaseData
+    public class VolunteerDeseaseData
     {
-        public int VolunteerId { get; set; } = 0;
+        public int VId { get; set; } = 0;
 
         public int DiseaseId { get; set; } = 0;
 
