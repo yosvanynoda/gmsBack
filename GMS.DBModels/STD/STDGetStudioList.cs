@@ -57,6 +57,10 @@
 
         public string SiteName { get; set; }
 
+        public int CroId { get; set; }
+
+        public string Cro { get; set; }
+
 
         public STDGetStudioList()
         {
@@ -75,6 +79,8 @@
             SponsorName = "";
 
             SiteName = "";
+
+            Cro = "";
         }
 
     }
