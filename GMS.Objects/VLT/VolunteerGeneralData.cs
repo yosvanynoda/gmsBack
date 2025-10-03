@@ -58,12 +58,14 @@
 
         public int Ethnicity { get; set; } = 0;
 
+        public string Picture { get; set; } = string.Empty;
+
         public int Sex { get; set; } = 0;
 
         public int Gender { get; set; } = 0;
 
         public int Language { get; set; } = 0;
 
-        public string Picture { get; set; } = string.Empty;
+       
     }
 }
