@@ -19,5 +19,7 @@
         public bool RequiredFlag { get; set; } = false;
 
         public int SortOrder { get; set; } = 0;
+
+        public string Comment { get; set; } = string.Empty;
     }
 }

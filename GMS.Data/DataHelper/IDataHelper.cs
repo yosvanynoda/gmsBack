@@ -130,6 +130,10 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> STD_GetSponsorDropList(string cn, int companyId);
 
+        Task<PayloadResult?> STD_GetDiseaseDropList(string cn, int companyId);
+
+        Task<PayloadResult?> STD_GetCroDropList(string cn, int companyId);
+
         Task<PayloadResult?> STD_GetStaffDropList(string cn, int companyId, int siteId);
 
         Task<PayloadResult?> STD_GetStudioDropList(string cn, int companyId, int siteId);

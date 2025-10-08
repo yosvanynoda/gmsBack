@@ -32,6 +32,10 @@ namespace GMS.Business.STD
 
         Task<BaseResponse> GetSponsorDropList(string cn, GeneralRequest request);
 
+        Task<BaseResponse> GetDiseaseDropList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetCroDropList(string cn, GeneralRequest request);
+
         Task<BaseResponse> GetMonitorDropList(string cn, int companyId, int sponsorId);
 
         Task<BaseResponse> GetStaffDropList(string cn, int companyId, int siteId);
