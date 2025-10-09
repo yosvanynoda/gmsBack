@@ -36,7 +36,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@VLTEmergencyContact", dtEmergc.AsTableValuedParameter());
 
-                parameters.Add("@VLTDiseases", dtDisease.AsTableValuedParameter());
+                parameters.Add("@VLTDeseases", dtDisease.AsTableValuedParameter());
 
                 parameters.Add("@VLTAllergies", dtAllergy.AsTableValuedParameter());
 
