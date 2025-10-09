@@ -407,18 +407,18 @@ namespace GMS.Services.Controllers.v1.STD
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/getmonitordroplist")]
-        public async Task<IActionResult> GetMonitorDropList(int companyId, int sponsorId)
+        public async Task<IActionResult> GetMonitorDropList(int? companyId, int? sponsorId)
         {
             try
             {
-                if (companyId == null | sponsorId == null)
+                if (companyId == null || sponsorId == null)
                 {
                     return BadRequest("Invalid request data.");
                 }
 
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
-                var result = await _service.GetMonitorDropList(cn, companyId, sponsorId);
+                var result = await _service.GetMonitorDropList(cn, (int)companyId, (int)sponsorId);
 
                 if (!result.Success)
                 {
