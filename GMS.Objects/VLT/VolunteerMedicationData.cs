@@ -2,6 +2,9 @@
 {
     public class VolunteerMedicationData
     {
+
+        public int CompanyId { get; set; } = 0;
+       
         public int VId { get; set; } = 0;
 
         public string DrogName { get; set; }
@@ -11,8 +14,6 @@
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
-
-        public int CompanyId { get; set; } = 0;
 
         public int UserName { get; set; } = 0;
 

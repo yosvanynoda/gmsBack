@@ -404,6 +404,66 @@ namespace GMS.Services.Controllers.v1.STD
             }
         }
 
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getdiseasedroplist")]
+        public async Task<IActionResult> GetDiseaseDropList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetDiseaseDropList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getcrodroplist")]
+        public async Task<IActionResult> GetCroDropList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetCroDropList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/getmonitordroplist")]

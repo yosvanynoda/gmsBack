@@ -37,12 +37,14 @@ namespace GMS.DBModels.STD
         public int? CompanyId { get; set; }
 
         public int? SiteId { get; set; }
-        
-        
+
+        public string Comment { get; set; }
+
         public STDVisitDefinition()
         {
             Name = "";         
 
+            Comment = "";
         }
 
     }

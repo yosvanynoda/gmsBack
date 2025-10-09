@@ -378,6 +378,66 @@ namespace GMS.Business.STD
             };
         }
 
+        public async Task<BaseResponse> GetDiseaseDropList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.STD_GetDiseaseDropList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No Disease found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetCroDropList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.STD_GetCroDropList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No CRO found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
         public async Task<BaseResponse> GetMonitorDropList(string cn, int companyId, int sponsorId)
         {
             if (sponsorId == null | companyId == null)
