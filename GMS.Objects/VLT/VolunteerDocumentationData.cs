@@ -4,6 +4,8 @@
     {
         public int VId { get; set; } = 0;
 
+        public int DocumentId { get; set; } = 0;
+
         public int DocumentTypeId { get; set; } = 0;
 
         public string DocName { get; set; }

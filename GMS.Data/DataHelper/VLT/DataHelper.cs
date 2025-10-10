@@ -78,6 +78,83 @@ namespace GMS.Data.DataHelper
             }
         }
 
+        public async Task<BaseResult> VLT_UpdateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
+               DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, int companyId, int siteId, int username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (dtGd == null || dtGd.Rows.Count == 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Volunteer Data is invalid."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@VLTDataUDT", dtGd.AsTableValuedParameter());
+
+                parameters.Add("@VLTEmergencyContact", dtEmergc.AsTableValuedParameter());
+
+                parameters.Add("@VLTDeseases", dtDisease.AsTableValuedParameter());
+
+                parameters.Add("@VLTAllergies", dtAllergy.AsTableValuedParameter());
+
+                parameters.Add("@VLTMedications", dtMed.AsTableValuedParameter());
+
+                parameters.Add("@VLTDocuments", dtDoc.AsTableValuedParameter());
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Username", username, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 300);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "VLT_UpdateVolunteerData", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Volunteer Data updated successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
         public async Task<PayloadResult?> VLT_GetVolunteerList(string cn, int companyId, int siteId)
         {
             var response = new PayloadResult();
