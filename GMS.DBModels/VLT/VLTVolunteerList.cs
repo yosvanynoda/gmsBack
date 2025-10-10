@@ -16,6 +16,8 @@
 
         public string? Race { get; set; } = string.Empty;
 
+        public string Phone { get; set; } = string.Empty;
+
         public string? Ethnicity { get; set; } = string.Empty;
 
         public string? CurrentStatus { get; set; } = string.Empty;

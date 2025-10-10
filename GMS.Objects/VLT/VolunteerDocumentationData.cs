@@ -23,7 +23,7 @@
         public bool Active { get; set; }
 
         public int SiteId { get; set; } = 0;
-
+        
         public VolunteerDocumentationData()
         {
             DocName = "";
