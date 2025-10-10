@@ -13,7 +13,7 @@
 
         //public int StudyId { get; set; }
 
-        public string SponsorName { get; set; }
+        public string SponsorName { get; set; } = "";
 
         public int SponsorId { get; set; }
 
@@ -21,13 +21,6 @@
 
         public bool Active { get; set; }
 
-
-        public STDGetMonitorList()
-        {
-            //StudioName = "";
-
-            SponsorName = "";
-        }
     }
 
 }

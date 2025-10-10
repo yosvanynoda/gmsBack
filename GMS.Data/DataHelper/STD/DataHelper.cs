@@ -764,7 +764,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@SponsorId", sponsorId, DbType.Int32, ParameterDirection.Input);
 
-                var result = await QueryStoreProcedure<STDGetMonitorDropList>(cn, "STD_GetMonitorDropList", parameters, 0);
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "STD_GetMonitorDropList", parameters, 0);
 
                 if (result != null && result.Any())
                 {
@@ -800,7 +800,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 
-                var result = await QueryStoreProcedure<STDGetSponsorDropList>(cn, "STD_GetSponsorDropList", parameters, 0);
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "STD_GetSponsorDropList", parameters, 0);
 
                 if (result != null && result.Any())
                 {
@@ -836,7 +836,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 
-                var result = await QueryStoreProcedure<STDGetDiseaseDropList>(cn, "STD_GetDiseaseDropList", parameters, 0);
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "STD_GetDiseaseDropList", parameters, 0);
 
                 if (result != null && result.Any())
                 {
@@ -872,7 +872,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 
-                var result = await QueryStoreProcedure<STDGetCroDropList>(cn, "STD_GetCroDropList", parameters, 0);
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "STD_GetCroDropList", parameters, 0);
 
                 if (result != null && result.Any())
                 {
@@ -910,7 +910,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
 
-                var result = await QueryStoreProcedure<STDGetStaffDropList>(cn, "STD_GetStaffDropList", parameters, 0);
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "STD_GetStaffDropList", parameters, 0);
 
                 if (result != null && result.Any())
                 {
@@ -948,7 +948,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
 
-                var result = await QueryStoreProcedure<STDGetStudioDropList>(cn, "STD_GetStudioDropList", parameters, 0);
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "STD_GetStudioDropList", parameters, 0);
 
                 if (result != null && result.Any())
                 {

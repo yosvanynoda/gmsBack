@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="STD\STDGetCroDropList.cs" />
+    <Compile Remove="STD\STDGetDiseaseDropList.cs" />
+    <Compile Remove="STD\STDGetMonitorDropList.cs" />
+    <Compile Remove="STD\STDGetSponsorDropList.cs" />
+    <Compile Remove="STD\STDGetStaffDropList.cs" />
+    <Compile Remove="STD\STDGetStudioDropList.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

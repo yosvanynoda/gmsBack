@@ -9,17 +9,17 @@
 
         public int StudioId { get; set; }
 
-        public string StudioName { get; set; }
+        public string StudioName { get; set; } = "";
 
         public int DocumentTypeId { get; set; }
 
 
-        public string DocType { get; set; }
+        public string DocType { get; set; } = "";
 
         /// <summary>
         /// DocName
         /// </summary>
-        public string DocName { get; set; }
+        public string DocName { get; set; } = "";
 
         /// <summary>
         /// DocDate
@@ -29,7 +29,7 @@
         /// <summary>
         /// DocVersion
         /// </summary>
-        public string DocVersion { get; set; }
+        public string DocVersion { get; set; } = "";
 
         /// <summary>
         /// DocActive
@@ -39,14 +39,14 @@
         /// <summary>
         /// Notes
         /// </summary>
-        public string Notes { get; set; }
+        public string Notes { get; set; } = "";
 
         /// <summary>
         /// CompanyId
         /// </summary>
         public int CompanyId { get; set; }
 
-       public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public int UserName { get; set; }
 
@@ -54,16 +54,6 @@
 
         public int SiteId { get; set; }
 
-        /// <summary>
-        /// STDDocumentation
-        /// </summary>
-        public STDDocumentation()
-        {
-            DocName = "";
 
-            DocVersion = "";
-
-            Notes = "";
-        }
     }
 }
