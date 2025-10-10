@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GMS.Objects.General
+namespace GMS.DBModels.Helper
 {
     public class DropListBaseResponse
     {
