@@ -52,6 +52,8 @@ namespace GMS.Business.CMN
 
         Task<BaseResponse> GetStaffList(string cn, GeneralRequest  request);
 
+        Task<BaseResponse> GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId);
+
         Task<BaseResponse> GetStaffDocumentList(string cn, StaffDocRequest request);
 
         Task<BaseResponse> GetRaceList(string cn, GeneralRequest request);

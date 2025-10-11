@@ -68,6 +68,8 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> CMN_GetStaffList(string cn, int companyId);
 
+        Task<PayloadResult?> CMN_GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId);
+
         Task<PayloadResult?> CMN_GetSponsorTypeList(string cn, int companyId);
 
         Task<PayloadResult?> CMN_GetRaceList(string cn, int companyId);
@@ -164,6 +166,9 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> VLT_CreateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
                 DataTable dtDoc, DataTable dtEmergc, DataTable dtMed);
+
+        Task<BaseResult> VLT_UpdateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
+              DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, int companyId, int siteId, int username);
 
         Task<PayloadResult?> VLT_GetVolunteerList(string cn, int companyId, int siteId);
 

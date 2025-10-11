@@ -537,6 +537,27 @@ namespace GMS.Business.CMN
             };
         }
 
+        public async Task<BaseResponse> GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId)
+        {
+            var result = await _dataHelper.CMN_GetStaffStudio(cn, companyId, siteId, staffId, studioId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Error retrieving staff-studio relationships."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
         public async Task<BaseResponse> GetStaffDocumentList(string cn, StaffDocRequest request)
         {
             if (request == null)

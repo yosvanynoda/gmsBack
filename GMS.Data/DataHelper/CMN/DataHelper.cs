@@ -1293,6 +1293,44 @@ namespace GMS.Data.DataHelper
         }
 
 
+        public async Task<PayloadResult?> CMN_GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StaffId", staffId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<CMNStaffStudio>(cn, "CMN_GetStaffStudio", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "No data found.";
+                    response.Data = new List<CMNStaffStudio>();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
         public async Task<PayloadResult?> CMN_GetStaffList(string cn, int companyId)
         {
             var response = new PayloadResult();

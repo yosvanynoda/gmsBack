@@ -832,6 +832,35 @@ namespace GMS.Services.Controllers.V1.CMN
         }
 
         [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getstaffstudio")]
+        public async Task<IActionResult> GetStaffStudio([FromBody] dynamic request)
+        {
+            try
+            {
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                int companyId = request.CompanyId;
+                int siteId = request.SiteId;
+                int? staffId = request.StaffId;
+                int? studioId = request.StudioId;
+
+                var result = await _service.GetStaffStudio(cn, companyId, siteId, staffId, studioId);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/gettasklist")]
         public async Task<IActionResult> GetTaskList(GeneralRequest request)
         {
