@@ -833,18 +833,22 @@ namespace GMS.Services.Controllers.V1.CMN
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/getstaffstudio")]
-        public async Task<IActionResult> GetStaffStudio([FromBody] dynamic request)
+        public async Task<IActionResult> GetStaffStudio(GetStaffStudioRequest request)
         {
             try
             {
+                Console.WriteLine($"GetStaffStudio API called - CompanyId: {request.CompanyId}, SiteId: {request.SiteId}, StaffId: {request.StaffId}, StudioId: {request.StudioId}");
+
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
-                int companyId = request.CompanyId;
-                int siteId = request.SiteId;
-                int? staffId = request.StaffId;
-                int? studioId = request.StudioId;
+                var result = await _service.GetStaffStudio(cn, request.CompanyId, request.SiteId, request.StaffId, request.StudioId);
 
-                var result = await _service.GetStaffStudio(cn, companyId, siteId, staffId, studioId);
+                Console.WriteLine($"Service result - Success: {result.Success}, DataIsNull: {result.Data == null}");
 
                 if (!result.Success)
                 {
@@ -856,6 +860,7 @@ namespace GMS.Services.Controllers.V1.CMN
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Exception in GetStaffStudio: {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
