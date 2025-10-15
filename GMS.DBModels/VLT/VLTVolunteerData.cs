@@ -63,8 +63,11 @@
         public int? LanguageId { get; set; }
         public int? SexId { get; set; }
 
+        public int Flag { get; set; }
 
+        public string? FlagReason { get; set; }
 
+        public int? CurrentStatusId { get; set; }
 
     }
 }

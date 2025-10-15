@@ -65,7 +65,11 @@
         public int Gender { get; set; } = 0;
 
         public int Language { get; set; } = 0;
-        
+
+        public int Flag { get; set; }
+
+        public string? FlagReason { get; set; }      
+
 
     }
 }

@@ -1105,5 +1105,96 @@ namespace GMS.Services.Controllers.V1.CMN
             }
         }
 
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getflagdroplist")]
+        public async Task<IActionResult> GetFlagDropList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetFlagDropList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvltstatuslist")]
+        public async Task<IActionResult> GetVLTStatusList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVLTStatusList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/createvltstatus")]
+        public async Task<IActionResult> CreateVLTStatus(CreateVLTStatusRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.CreateVLTStatus(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
     }
 }

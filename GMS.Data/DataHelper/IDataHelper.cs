@@ -92,6 +92,12 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> CMN_CreateCRO(string cn, int id, string cro, string comment, int companyId, int username, int action);
 
+        Task<PayloadResult?> CMN_GetFlagDropList(string cn, int companyId);
+
+        Task<PayloadResult?> CMN_GetVLTStatusList(string cn, int companyId);
+
+        Task<BaseResult> CMN_CreateVLTStatus(string cn, int id, string name, string comment, int companyId, int username, int action);
+
         #endregion
 
         #region PRJ...
@@ -173,6 +179,8 @@ namespace GMS.Data.DataHelper
         Task<PayloadResult?> VLT_GetVolunteerList(string cn, int companyId, int siteId);
 
         Task<PayloadResult?> VLT_GetVolunteerData(string cn, int companyId, int siteId, int volunteerId);
+
+        Task<PayloadResult?> VLT_GetVLTStatusDropList(string cn, int companyId);
 
         #endregion
 

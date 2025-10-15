@@ -1,6 +1,7 @@
 ﻿using GMS.Data.DataHelper;
 using GMS.Objects.API;
 using GMS.Objects.VLT;
+using GMS.Objects.General;
 
 namespace GMS.Business.VLT
 {
@@ -145,5 +146,36 @@ namespace GMS.Business.VLT
                 Success = result.Result >= 0,
             };
         }
+
+        public async Task<BaseResponse> GetVLTStatusDropList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.VLT_GetVLTStatusDropList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No VLT Status found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
     }
 }

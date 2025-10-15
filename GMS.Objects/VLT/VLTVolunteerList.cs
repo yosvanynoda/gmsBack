@@ -23,5 +23,7 @@
         public string? CurrentStatus { get; set; } = string.Empty;
 
         public int? SiteId { get; set; }
+
+        public string FlagColor { get; set; }
     }
 }

@@ -77,5 +77,12 @@ namespace GMS.Business.CMN
         Task<BaseResponse> GetCROList(string cn, GeneralRequest request);
 
         Task<BaseResponse> CreateCRO(string cn, CreateCRORequest request);
+
+        Task<BaseResponse> GetFlagDropList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetVLTStatusList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> CreateVLTStatus(string cn, CreateVLTStatusRequest request);
+
     }
 }
