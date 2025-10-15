@@ -832,6 +832,40 @@ namespace GMS.Services.Controllers.V1.CMN
         }
 
         [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getstaffstudio")]
+        public async Task<IActionResult> GetStaffStudio(GetStaffStudioRequest request)
+        {
+            try
+            {
+                Console.WriteLine($"GetStaffStudio API called - CompanyId: {request.CompanyId}, SiteId: {request.SiteId}, StaffId: {request.StaffId}, StudioId: {request.StudioId}");
+
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetStaffStudio(cn, request.CompanyId, request.SiteId, request.StaffId, request.StudioId);
+
+                Console.WriteLine($"Service result - Success: {result.Success}, DataIsNull: {result.Data == null}");
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in GetStaffStudio: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/gettasklist")]
         public async Task<IActionResult> GetTaskList(GeneralRequest request)
         {
@@ -1070,6 +1104,97 @@ namespace GMS.Services.Controllers.V1.CMN
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getflagdroplist")]
+        public async Task<IActionResult> GetFlagDropList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetFlagDropList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvltstatuslist")]
+        public async Task<IActionResult> GetVLTStatusList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVLTStatusList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/createvltstatus")]
+        public async Task<IActionResult> CreateVLTStatus(CreateVLTStatusRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.CreateVLTStatus(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
     }
 }

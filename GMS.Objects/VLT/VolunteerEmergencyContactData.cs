@@ -4,6 +4,8 @@
     {
         public int VoluntierId { get; set; } = 0;
 
+        public int ContactId { get; set; } = 0;
+
         public string ContactName { get; set; } = string.Empty;
 
         public string ContactPhone { get; set; } = string.Empty;
@@ -17,5 +19,6 @@
         public bool Active { get; set; }
 
         public int SiteId { get; set; } = 0;
+       
     }
 }

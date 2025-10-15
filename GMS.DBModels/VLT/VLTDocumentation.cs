@@ -19,5 +19,7 @@
         public int? CompanyId { get; set; }
 
         public int? SiteId { get; set; }
+
+        public int? DocTypeId { get; set; }
     }
 }

@@ -537,6 +537,27 @@ namespace GMS.Business.CMN
             };
         }
 
+        public async Task<BaseResponse> GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId)
+        {
+            var result = await _dataHelper.CMN_GetStaffStudio(cn, companyId, siteId, staffId, studioId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Error retrieving staff-studio relationships."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
         public async Task<BaseResponse> GetStaffDocumentList(string cn, StaffDocRequest request)
         {
             if (request == null)
@@ -919,6 +940,87 @@ namespace GMS.Business.CMN
                 Data = null,
                 Message = result.ResultMessage,
                 Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetFlagDropList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetFlagDropList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No Flag found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> CreateVLTStatus(string cn, CreateVLTStatusRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.Name))
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "VLT Status cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_CreateVLTStatus(cn, request.Id, request.Name, request.Comment, request.CompanyId, request.Username, request.Action);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetVLTStatusList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetVLTStatusList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No VLT Status found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result.Data,
+                Message = result.ResultMessage,
+                Success = result?.Result == 0,
             };
         }
 

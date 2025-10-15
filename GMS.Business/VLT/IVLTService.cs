@@ -9,8 +9,12 @@ namespace GMS.Business.VLT
     {
         Task<BaseResponse> CreateVolunteerData(string cn, CreateVolunteerDataRequest request);
 
+        Task<BaseResponse> UpdateVolunteerData(string cn, CreateVolunteerDataRequest request);
+
         Task<BaseResponse> GetVolunteerList(string cn, SiteRequest request);
 
         Task<BaseResponse> GetVolunteerData(string cn, VolunteerRequest request);
+
+        Task<BaseResponse> GetVLTStatusDropList(string cn, GeneralRequest request);
     }
 }

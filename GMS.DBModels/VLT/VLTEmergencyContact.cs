@@ -15,5 +15,8 @@
         public int? CompanyId { get; set; }
 
         public int? SiteId { get; set; }
+
+        public int? RelationTypeId { get; set; }
+   
     }
 }

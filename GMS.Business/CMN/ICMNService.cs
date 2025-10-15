@@ -52,6 +52,8 @@ namespace GMS.Business.CMN
 
         Task<BaseResponse> GetStaffList(string cn, GeneralRequest  request);
 
+        Task<BaseResponse> GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId);
+
         Task<BaseResponse> GetStaffDocumentList(string cn, StaffDocRequest request);
 
         Task<BaseResponse> GetRaceList(string cn, GeneralRequest request);
@@ -75,5 +77,12 @@ namespace GMS.Business.CMN
         Task<BaseResponse> GetCROList(string cn, GeneralRequest request);
 
         Task<BaseResponse> CreateCRO(string cn, CreateCRORequest request);
+
+        Task<BaseResponse> GetFlagDropList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetVLTStatusList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> CreateVLTStatus(string cn, CreateVLTStatusRequest request);
+
     }
 }
