@@ -610,5 +610,38 @@ namespace GMS.Business.STD
                 Success = result.Result >= 0,
             };
         }
+
+        public async Task<BaseResponse> PreAssignVolunteersToStudy(string cn, PreAssignVolunteersToStudyRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            if (request.VolunteerIds == null || request.VolunteerIds.Count == 0)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No volunteers selected for pre-assignment."
+                };
+            }
+
+            var dtVolunteerIds = Helper.HelperUDT.ListToDataTable(request.VolunteerIds);
+
+            var result = await _dataHelper.VLT_PreAssignVolunteersToStudy(cn, request.CompanyId, request.SiteId,
+                request.StudyId, dtVolunteerIds, request.UserId);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
     }
 }

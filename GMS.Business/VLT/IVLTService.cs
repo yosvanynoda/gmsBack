@@ -16,5 +16,7 @@ namespace GMS.Business.VLT
         Task<BaseResponse> GetVolunteerData(string cn, VolunteerRequest request);
 
         Task<BaseResponse> GetVLTStatusDropList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> SearchVolunteersForStudy(string cn, VolunteerSearchRequest request);
     }
 }

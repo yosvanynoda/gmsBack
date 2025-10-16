@@ -275,5 +275,52 @@ namespace GMS.Data.DataHelper
 
             return response;
         }
+
+        public async Task<PayloadResult?> VLT_SearchVolunteersForStudy(string cn, int companyId, int siteId, int? minAge,
+            int? maxAge, int? genderId, int? raceId, int? ethnicityId, int? languageId, string? currentStatus,
+            bool excludeAlreadyAssigned, int? studyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@MinAge", minAge, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@MaxAge", maxAge, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@GenderId", genderId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@RaceId", raceId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@EthnicityId", ethnicityId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@LanguageId", languageId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@CurrentStatus", currentStatus, DbType.String, ParameterDirection.Input, size: 50);
+                parameters.Add("@ExcludeAlreadyAssigned", excludeAlreadyAssigned, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<VLTVolunteerSearchResult>(cn, "VLT_SearchVolunteersForStudy", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No volunteers found matching the criteria.";
+                    response.Data = new List<VLTVolunteerSearchResult>();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
     }
 }

@@ -182,6 +182,13 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> VLT_GetVLTStatusDropList(string cn, int companyId);
 
+        Task<PayloadResult?> VLT_SearchVolunteersForStudy(string cn, int companyId, int siteId, int? minAge,
+            int? maxAge, int? genderId, int? raceId, int? ethnicityId, int? languageId, string? currentStatus,
+            bool excludeAlreadyAssigned, int? studyId);
+
+        Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
+            DataTable volunteerIds, int userId);
+
         #endregion
 
         #endregion

@@ -177,5 +177,48 @@ namespace GMS.Business.VLT
             };
         }
 
+        public async Task<BaseResponse> SearchVolunteersForStudy(string cn, VolunteerSearchRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.VLT_SearchVolunteersForStudy(
+                cn,
+                request.CompanyId,
+                request.SiteId,
+                request.MinAge,
+                request.MaxAge,
+                request.GenderId,
+                request.RaceId,
+                request.EthnicityId,
+                request.LanguageId,
+                request.CurrentStatus,
+                request.ExcludeAlreadyAssigned,
+                request.StudyId
+            );
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Search failed."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
     }
 }

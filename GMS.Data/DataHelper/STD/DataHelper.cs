@@ -1137,5 +1137,67 @@ namespace GMS.Data.DataHelper
             return response;
         }
 
+        public async Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
+            DataTable volunteerIds, int userId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (volunteerIds == null || volunteerIds.Rows.Count == 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "No volunteers selected for pre-assignment."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@VolunteerIds", volunteerIds.AsTableValuedParameter());
+                parameters.Add("@UserId", userId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "VLT_PreAssignVolunteersToStudy", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = $"{result.Result} volunteer(s) pre-assigned to study successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
     }
 }
