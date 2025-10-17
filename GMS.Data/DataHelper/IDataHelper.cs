@@ -162,9 +162,9 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> SUB_CreateRandomCode(string cn, int subjectId, int studioId, string code, int companyId);
 
-        Task<BaseResult> SUB_CreateSubject(string cn, string fName, string lName, DateTime dob, string ssNumber, string email, string phone, int addressId, string id, int companyId);
+        Task<PayloadResult?> SUB_GetSubjectList(string cn, int companyId, int siteId);
 
-        Task<BaseResult> SUB_CreateSubjectData(string cn, DataTable subDataUDT);
+        Task<BaseResult> SUB_CreateSubject(string cn, DataTable subDataUDT);
 
         #endregion
 

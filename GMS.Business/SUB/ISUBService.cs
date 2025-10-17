@@ -1,5 +1,7 @@
 ﻿using GMS.Objects.API;
 using GMS.Objects.SUB;
+using GMS.Objects.VLT;
+
 
 namespace GMS.Business.SUB
 {
@@ -9,7 +11,7 @@ namespace GMS.Business.SUB
 
         Task<BaseResponse> CreateRandomCode(string cn, CreateRandomCodeRequest request);
 
-        Task<BaseResponse> CreateSubjectData(string cn, CreateSubjectDataRequest request);
+        Task<BaseResponse> GetSubjectList(string cn, SiteRequest request);
 
         Task<BaseResponse> CreateSubject(string cn, CreateSubjectRequest request);
     }

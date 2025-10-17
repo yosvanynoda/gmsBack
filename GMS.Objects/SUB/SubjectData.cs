@@ -2,32 +2,20 @@
 {
     public class SubjectData
     {
-        public string FirstName { get; set; } = string.Empty;
+        public int SubjectId { get; set; }
 
-        public string LastName { get; set; } = string.Empty;
+        public int VolunteerId { get; set; }
 
-        public DateTime SubjectDOB { get; set; }
+        public int StudyId { get; set; }
 
-        public string SubjectSS { get; set; } = string.Empty;
+        public int CompanyId { get; set; }
 
-        public string Phone { get; set; } = string.Empty;
+        public int SiteId { get; set; }
 
-        public int AddressId { get; set; }
-
-        public string SubjectEmail { get; set; } = string.Empty;
-
-        public string SubjectId { get; set; } = string.Empty;
-
-        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-
-        public int CompanyId { get; set; } = 0;
+        public int UserNameId { get; set; }
 
         public string CurrentStatus { get; set; } = string.Empty;
 
-        public string Weight { get; set; } = string.Empty;
-
-        public string Height { get; set; } = string.Empty;
-
-        public string LegalRepresentative { get; set; } = string.Empty;
+        public int CurrentStatusId { get; set; }
     }
 }

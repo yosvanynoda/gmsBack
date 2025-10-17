@@ -1,6 +1,10 @@
 ﻿using GMS.Data.DataHelper;
+using GMS.DBModels.VLT;
 using GMS.Objects.API;
+using GMS.Objects.General;
 using GMS.Objects.SUB;
+using GMS.Objects.VLT;
+
 
 namespace GMS.Business.SUB
 {
@@ -51,25 +55,31 @@ namespace GMS.Business.SUB
                 Success = result.Result >= 0,
             };
         }
-
-        public async Task<BaseResponse> CreateSubjectData(string cn, CreateSubjectDataRequest request)
+        public async Task<BaseResponse> GetSubjectList(string cn, SiteRequest request)
         {
-            if (request == null || request.SubjectData == null || request.SubjectData.Count == 0)
+            if (request == null)
             {
                 return new BaseResponse
                 {
                     Success = false,
-                    Message = "Subject Data cannot be empty."
+                    Message = "Request cannot be empty."
                 };
             }
 
-            var dt = Helper.HelperUDT.ListToDataTable(request.SubjectData);
+            var result = await _dataHelper.SUB_GetSubjectList(cn, request.CompanyId, request.SiteId);
 
-            var result = await _dataHelper.SUB_CreateSubjectData(cn, dt);
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No subjects found."
+                };
+            }
 
             return new BaseResponse
             {
-                Data = null,
+                Data = result?.Data,
                 Message = result.ResultMessage,
                 Success = result.Result >= 0,
             };
@@ -77,7 +87,7 @@ namespace GMS.Business.SUB
 
         public async Task<BaseResponse> CreateSubject(string cn, CreateSubjectRequest request)
         {
-            if (request == null || string.IsNullOrWhiteSpace(request.FirstName))
+            if (request == null)
             {
                 return new BaseResponse
                 {
@@ -86,10 +96,9 @@ namespace GMS.Business.SUB
                 };
             }
 
+            var dtSubject = Helper.HelperUDT.ListToDataTable(request.SubjectData);
 
-            var result = await _dataHelper.SUB_CreateSubject(cn, request.FirstName, request.LastName, request.DateOfBirth, request.SocialSecurityNumber,
-                request.Email, request.Phone, request.AddressId, request.Id, request.CompanyId);
-
+            var result = await _dataHelper.SUB_CreateSubject(cn, dtSubject);
 
             return new BaseResponse
             {
@@ -98,5 +107,6 @@ namespace GMS.Business.SUB
                 Success = result.Result >= 0,
             };
         }
+            
     }
 }

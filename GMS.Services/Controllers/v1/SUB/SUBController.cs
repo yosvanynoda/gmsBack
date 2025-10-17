@@ -1,5 +1,6 @@
 ﻿using GMS.Business.SUB;
 using GMS.Objects.SUB;
+using GMS.Objects.VLT;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GMS.Services.Controllers.v1.SUB
@@ -75,8 +76,8 @@ namespace GMS.Services.Controllers.v1.SUB
         }
 
         [HttpPost]
-        [Route("api/v{version:apiVersion}/[controller]/createsubjectdata")]
-        public async Task<IActionResult> CreateSubjectData(CreateSubjectDataRequest request)
+        [Route("api/v{version:apiVersion}/[controller]/getsubjectlist")]
+        public async Task<IActionResult> GetSubjectList(SiteRequest request)
         {
             try
             {
@@ -87,7 +88,7 @@ namespace GMS.Services.Controllers.v1.SUB
 
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
-                var result = await _service.CreateSubjectData(cn, request);
+                var result = await _service.GetSubjectList(cn, request);
 
                 if (!result.Success)
                 {

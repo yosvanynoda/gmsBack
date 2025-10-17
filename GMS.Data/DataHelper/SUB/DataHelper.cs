@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using GMS.DBModels.Helper;
+using GMS.DBModels.SUB;
 using System.Data;
 
 namespace GMS.Data.DataHelper
@@ -172,7 +173,7 @@ namespace GMS.Data.DataHelper
         /// <param name="id"></param>
         /// <param name="companyId"></param>
         /// <returns></returns>
-        public async Task<BaseResult> SUB_CreateSubject(string cn, string fName, string lName, DateTime dob, string ssNumber, string email, string phone, int addressId, string id, int companyId)
+        public async Task<BaseResult> SUB_CreateSubject(string cn,DataTable dtSubject)
         {
             try
             {
@@ -184,38 +185,22 @@ namespace GMS.Data.DataHelper
                         ResultMessage = "Database object is null."
                     };
                 }
-                if (string.IsNullOrWhiteSpace(fName))
+                if ( dtSubject == null || dtSubject.Rows.Count == 0)
                 {
                     return new BaseResult
                     {
                         Result = -99,
-                        ResultMessage = "Subject Name is invalid."
+                        ResultMessage = "Subject is invalid."
                     };
                 }
 
                 var parameters = new DynamicParameters();
 
-                parameters.Add("@FName", fName, DbType.String, ParameterDirection.Input);
-
-                parameters.Add("@LName", lName, DbType.String, ParameterDirection.Input);
-
-                parameters.Add("@Dob", dob, DbType.DateTime, ParameterDirection.Input);
-
-                parameters.Add("@SSNumber", ssNumber, DbType.String, ParameterDirection.Input);
-
-                parameters.Add("@Email", email, DbType.String, ParameterDirection.Input);
-
-                parameters.Add("@Phone", phone, DbType.String, ParameterDirection.Input);
-
-                parameters.Add("@AddressId", addressId, DbType.Int32, ParameterDirection.Input);
-
-                parameters.Add("@Id", id, DbType.String, ParameterDirection.Input);
-
-                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SubDataUDT", dtSubject.AsTableValuedParameter());
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "SUB_CreateSubject", parameters);
 
@@ -247,71 +232,43 @@ namespace GMS.Data.DataHelper
             }
         }
 
-        /// <summary>
-        /// SUB_CreateSubjectData
-        /// </summary>
-        /// <param name="cn"></param>
-        /// <param name="subDataUDT"></param>
-        /// <returns></returns>
-        public async Task<BaseResult> SUB_CreateSubjectData(string cn, DataTable subDataUDT)
+        public async Task<PayloadResult?> SUB_GetSubjectList(string cn, int companyId, int siteId)
         {
+            var response = new PayloadResult();
+
             try
             {
-                if (string.IsNullOrWhiteSpace(cn))
-                {
-                    return new BaseResult
-                    {
-                        Result = -99,
-                        ResultMessage = "Database object is null."
-                    };
-                }
-
-                if (subDataUDT == null || subDataUDT.Rows.Count == 0)
-                {
-                    return new BaseResult
-                    {
-                        Result = -99,
-                        ResultMessage = "Subject Data is invalid."
-                    };
-                }
-
                 var parameters = new DynamicParameters();
 
-                parameters.Add("@SubDataUDT", subDataUDT.AsTableValuedParameter());
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 
-                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
 
-                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+                var result = await QueryStoreProcedure<SUBSubjectList>(cn, "SUB_GetSubjectList", parameters, 0);
 
-                var result = await ExecuteStoreProcedureWithResult(cn, "SUB_CreateSubjectData", parameters);
-
-                if (result.Result >= 0)
+                if (result != null && result.Any())
                 {
-                    return new BaseResult
-                    {
-                        Result = 0,
-                        ResultMessage = "Subject Data created successfully."
-                    };
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
                 }
                 else
                 {
-                    return new BaseResult
-                    {
-                        Result = result.Result,
-                        ResultMessage = result.ResultMessage
-                    };
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
                 }
+
             }
             catch (Exception ex)
             {
 
-                return new BaseResult
-                {
-                    Result = -99,
-                    ResultMessage = ex.Message
-                };
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
             }
+
+            return response;
         }
+
 
     }
 }
