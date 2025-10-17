@@ -50,6 +50,8 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> CMN_GetDocTypeList(string cn, int companyId);
 
+        Task<PayloadResult?> CMN_GetDocTypeListDropList(string cn, int companyId);
+
         Task<PayloadResult?> CMN_GetRelationTypeList(string cn, int companyId);
 
         Task<PayloadResult?> CMN_GetDiseaseList(string cn, int companyId);

@@ -32,7 +32,9 @@ namespace GMS.Business.CMN
 
         Task<BaseResponse> CreateStaffDocument(string cn, CreateStaffDocumentRequest request);
         
-        Task<BaseResponse> GetDocTypeList(string cn, GeneralRequest request); 
+        Task<BaseResponse> GetDocTypeList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetDocTypeListDropList(string cn, GeneralRequest request);
 
         Task<BaseResponse> GetSponsorTypeList(string cn, GeneralRequest request);
         

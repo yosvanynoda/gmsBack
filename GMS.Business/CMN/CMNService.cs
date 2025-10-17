@@ -417,6 +417,36 @@ namespace GMS.Business.CMN
             };
         }
 
+        public async Task<BaseResponse> GetDocTypeListDropList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetDocTypeListDropList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No document type found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
         public async Task<BaseResponse> GetRoleTypeList(string cn, GeneralRequest request)
         {
             if (request == null)
