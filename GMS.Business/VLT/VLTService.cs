@@ -2,6 +2,7 @@
 using GMS.Objects.API;
 using GMS.Objects.VLT;
 using GMS.Objects.General;
+using GMS.Objects.STD;
 
 namespace GMS.Business.VLT
 {
@@ -20,8 +21,7 @@ namespace GMS.Business.VLT
                     Message = "Volunteer Data cannot be empty."
                 };
             }
-
-
+              
 
             var dtGD = Helper.HelperUDT.ListToDataTable(request.VolunteerGeneralData);
 
@@ -194,13 +194,15 @@ namespace GMS.Business.VLT
                 request.SiteId,
                 request.MinAge,
                 request.MaxAge,
-                request.GenderId,
-                request.RaceId,
-                request.EthnicityId,
-                request.LanguageId,
+                request.GenderIds,
+                request.RaceIds,
+                request.EthnicityIds,
+                request.LanguageIds,
                 request.CurrentStatus,
                 request.ExcludeAlreadyAssigned,
-                request.StudyId
+                request.StudyId,
+                request.DiseaseIds,
+                request.Healthy
             );
 
             if (result == null)
@@ -219,6 +221,67 @@ namespace GMS.Business.VLT
                 Success = result.Result >= 0,
             };
         }
+
+        public async Task<BaseResponse> GetVolunteerHistory(string cn, VolunteerRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.VLT_GetVolunteerHistory(cn, request.CompanyId, request.SiteId, request.VolunteerId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No data found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetVolunteerPreSelectedList(string cn, StudioDataRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.VLT_GetVolunteerPreSelectedList(cn, request.CompanyId, request.SiteId, request.StudyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No volunteer found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
 
     }
 }

@@ -277,8 +277,8 @@ namespace GMS.Data.DataHelper
         }
 
         public async Task<PayloadResult?> VLT_SearchVolunteersForStudy(string cn, int companyId, int siteId, int? minAge,
-            int? maxAge, int? genderId, int? raceId, int? ethnicityId, int? languageId, string? currentStatus,
-            bool excludeAlreadyAssigned, int? studyId)
+            int? maxAge, List<int>? genderIds, List<int>? raceIds, List<int>? ethnicityIds, List<int>? languageIds,
+            string? currentStatus, bool excludeAlreadyAssigned, int? studyId, List<int>? diseaseIds, bool? healthy)
         {
             var response = new PayloadResult();
 
@@ -290,13 +290,18 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@MinAge", minAge, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@MaxAge", maxAge, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@GenderId", genderId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@RaceId", raceId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@EthnicityId", ethnicityId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@LanguageId", languageId, DbType.Int32, ParameterDirection.Input);
+
+                // Add TVP parameters for multi-selection
+                parameters.Add("@GenderIds", CreateIntListDataTable(genderIds).AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@RaceIds", CreateIntListDataTable(raceIds).AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@EthnicityIds", CreateIntListDataTable(ethnicityIds).AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@LanguageIds", CreateIntListDataTable(languageIds).AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@DiseaseIds", CreateIntListDataTable(diseaseIds).AsTableValuedParameter("dbo.IntListTableType"));
+
                 parameters.Add("@CurrentStatus", currentStatus, DbType.String, ParameterDirection.Input, size: 50);
                 parameters.Add("@ExcludeAlreadyAssigned", excludeAlreadyAssigned, DbType.Boolean, ParameterDirection.Input);
                 parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Healthy", healthy, DbType.Boolean, ParameterDirection.Input);
 
                 var result = await QueryStoreProcedure<VLTVolunteerSearchResult>(cn, "VLT_SearchVolunteersForStudy", parameters, 0);
 
@@ -322,5 +327,108 @@ namespace GMS.Data.DataHelper
 
             return response;
         }
+
+        // Helper method to create DataTable for TVP parameters
+        private DataTable CreateIntListDataTable(List<int>? values)
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("Value", typeof(int));
+
+            if (values != null && values.Any())
+            {
+                foreach (var value in values)
+                {
+                    dt.Rows.Add(value);
+                }
+            }
+
+            return dt;
+        }
+
+        public async Task<PayloadResult?> VLT_GetVolunteerHistory(string cn, int companyId, int siteId, int volunteerId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@VolunteerId", volunteerId, DbType.Int32, ParameterDirection.Input);
+
+                var payload = new VLTVolunteerHistoryResponse();
+
+                var result = await QueryMultipleStoreProcedure(cn, "VLT_GetVolunteerHistory", parameters, 0);
+
+                if (result != null)
+                {
+                    
+                    payload.Studies = result.GridReader.Read<VLTStudies>().ToList() ?? [];
+                    payload.Selections = result.GridReader.Read<VLTSelections>().ToList() ?? [];
+                    
+
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = payload;
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<PayloadResult?> VLT_GetVolunteerPreSelectedList(string cn, int companyId, int siteId, int studyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<VLTVolunteerPreSelectedList>(cn, "VLT_GetPreSelectedList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
     }
 }

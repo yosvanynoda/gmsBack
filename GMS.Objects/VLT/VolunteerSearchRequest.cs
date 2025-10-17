@@ -3,28 +3,24 @@ namespace GMS.Objects.VLT
     public class VolunteerSearchRequest
     {
         public int CompanyId { get; set; }
-
         public int SiteId { get; set; }
-
-        // Age filters
         public int? MinAge { get; set; }
-
         public int? MaxAge { get; set; }
 
-        // Demographic filters
-        public int? GenderId { get; set; }
-
-        public int? RaceId { get; set; }
-
-        public int? EthnicityId { get; set; }
-
-        public int? LanguageId { get; set; }
+        // Changed to List<int> for multi-selection
+        public List<int>? GenderIds { get; set; }
+        public List<int>? RaceIds { get; set; }
+        public List<int>? EthnicityIds { get; set; }
+        public List<int>? LanguageIds { get; set; }
+        public List<int>? DiseaseIds { get; set; }
 
         public string? CurrentStatus { get; set; }
-
-        // Assignment filters
-        public bool ExcludeAlreadyAssigned { get; set; } = true;
-
+        public bool ExcludeAlreadyAssigned { get; set; }
         public int? StudyId { get; set; }
+        public bool? Healthy { get; set; }
+
+
+
+
     }
 }

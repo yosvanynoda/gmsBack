@@ -1,6 +1,7 @@
 ﻿using GMS.Business.VLT;
 using GMS.Objects.General;
 using GMS.Objects.VLT;
+using GMS.Objects.STD;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -180,6 +181,67 @@ using Microsoft.AspNetCore.Mvc;
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
                 var result = await _service.SearchVolunteersForStudy(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvolunteerhistory")]
+        public async Task<IActionResult> GetVolunteerHistory(VolunteerRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVolunteerHistory(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvolunteerpreselectedlist")]
+        public async Task<IActionResult> GetVolunteerPreSelectedList(StudioDataRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVolunteerPreSelectedList(cn, request);
 
                 if (!result.Success)
                 {
