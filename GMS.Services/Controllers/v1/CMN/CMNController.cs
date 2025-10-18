@@ -650,6 +650,36 @@ namespace GMS.Services.Controllers.V1.CMN
             }
         }
 
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getdoctypedroplist")]
+        public async Task<IActionResult> GetDocTypeDropList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetDocTypeListDropList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/getrelationtypelist")]
