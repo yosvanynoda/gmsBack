@@ -85,7 +85,7 @@ namespace GMS.Business.SUB
             };
         }
 
-        public async Task<BaseResponse> CreateSubject(string cn, CreateSubjectRequest request)
+        public async Task<BaseResponse> CreateSubject(string cn, CreateSubjectRequest request, string subjectCode)
         {
             if (request == null)
             {
@@ -98,7 +98,7 @@ namespace GMS.Business.SUB
 
             var dtSubject = Helper.HelperUDT.ListToDataTable(request.SubjectData);
 
-            var result = await _dataHelper.SUB_CreateSubject(cn, dtSubject);
+            var result = await _dataHelper.SUB_CreateSubject(cn, dtSubject, subjectCode);
 
             return new BaseResponse
             {
@@ -107,6 +107,36 @@ namespace GMS.Business.SUB
                 Success = result.Result >= 0,
             };
         }
-            
+
+        public async Task<BaseResponse> GetSubjectData(string cn, SubjectRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.SUB_GetSubjectData(cn, request.CompanyId, request.SiteId, request.SubjectId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No subject found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
     }
 }

@@ -53,7 +53,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "SUB_CreateContact", parameters);
 
@@ -121,13 +121,13 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
 
-                parameters.Add("@Code", code, DbType.String, ParameterDirection.Input);
+                parameters.Add("@Code", code, DbType.String, ParameterDirection.Input, size: 250);
 
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "SUB_CreateRandomCode", parameters);
 
@@ -173,7 +173,7 @@ namespace GMS.Data.DataHelper
         /// <param name="id"></param>
         /// <param name="companyId"></param>
         /// <returns></returns>
-        public async Task<BaseResult> SUB_CreateSubject(string cn,DataTable dtSubject)
+        public async Task<BaseResult> SUB_CreateSubject(string cn,DataTable dtSubject, string subjectCode)
         {
             try
             {
@@ -197,6 +197,8 @@ namespace GMS.Data.DataHelper
                 var parameters = new DynamicParameters();
 
                 parameters.Add("@SubDataUDT", dtSubject.AsTableValuedParameter());
+
+                parameters.Add("@SubjectCode", subjectCode, DbType.String, ParameterDirection.Input, size: 150);
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -269,6 +271,52 @@ namespace GMS.Data.DataHelper
             return response;
         }
 
+
+        public async Task<PayloadResult?> SUB_GetSubjectData(string cn, int companyId, int siteId, int subjectId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
+
+                var payload = new SUBSubjectResponse();
+
+                var result = await QueryMultipleStoreProcedure(cn, "SUB_GetSubjectData", parameters, 0);
+
+                if (result != null)
+                {
+                    payload.Header = result.GridReader.Read<SUBSubject>().FirstOrDefault() ?? new();
+                    payload.Consent = result.GridReader.Read<SUBConsent>().ToList() ?? [];
+                    payload.Deviation = result.GridReader.Read<SUBDeviation>().ToList() ?? [];
+                    payload.Adverse = result.GridReader.Read<SUBAdverse>().ToList() ?? [];
+
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = payload;
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
 
     }
 }

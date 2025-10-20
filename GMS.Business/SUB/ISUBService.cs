@@ -13,6 +13,8 @@ namespace GMS.Business.SUB
 
         Task<BaseResponse> GetSubjectList(string cn, SiteRequest request);
 
-        Task<BaseResponse> CreateSubject(string cn, CreateSubjectRequest request);
+        Task<BaseResponse> CreateSubject(string cn, CreateSubjectRequest request, string subjectCode);
+
+        Task<BaseResponse> GetSubjectData(string cn, SubjectRequest request);
     }
 }

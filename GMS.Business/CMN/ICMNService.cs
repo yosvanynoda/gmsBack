@@ -84,5 +84,11 @@ namespace GMS.Business.CMN
 
         Task<BaseResponse> CreateVLTStatus(string cn, CreateVLTStatusRequest request);
 
+        Task<BaseResponse> CreateDeviation(string cn, CreateDeviationRequest request);
+
+        Task<BaseResponse> GetDeviationList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetDeviationDropList(string cn, GeneralRequest request);
+
     }
 }

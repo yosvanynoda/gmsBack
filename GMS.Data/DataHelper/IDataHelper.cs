@@ -98,6 +98,12 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> CMN_CreateVLTStatus(string cn, int id, string name, string comment, int companyId, int username, int action);
 
+        Task<BaseResult> CMN_CreateDeviation(string cn, int DeviationId, string DeviationName, int companyId, int username, int action, string DeviationCode);
+
+        Task<PayloadResult?> CMN_GetDeviationList(string cn, int companyId);
+
+        Task<PayloadResult?> CMN_GetDeviationDropList(string cn, int companyId);
+
         #endregion
 
         #region PRJ...
@@ -164,7 +170,9 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> SUB_GetSubjectList(string cn, int companyId, int siteId);
 
-        Task<BaseResult> SUB_CreateSubject(string cn, DataTable subDataUDT);
+        Task<BaseResult> SUB_CreateSubject(string cn, DataTable subDataUDT, string subjectCode);
+
+        Task<PayloadResult?> SUB_GetSubjectData(string cn, int companyId, int siteId, int subjectId);
 
         #endregion
 
@@ -188,6 +196,8 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
             DataTable volunteerIds, int userId);
+
+        Task<BaseResult> VLT_RemovePreAssigned(string cn, int companyId, int siteId, int studyId, int volunteerId, int userId);
 
         Task<PayloadResult?> VLT_GetVolunteerHistory(string cn, int companyId, int siteId, int volunteerId);
 
