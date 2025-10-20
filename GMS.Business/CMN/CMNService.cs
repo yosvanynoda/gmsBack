@@ -1054,5 +1054,86 @@ namespace GMS.Business.CMN
             };
         }
 
+        public async Task<BaseResponse> CreateDeviation(string cn, CreateDeviationRequest request)
+        {
+
+            if (request == null || string.IsNullOrWhiteSpace(request.DeviationName))
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Deviation name cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_CreateDeviation(cn, request.DeviationId, request.DeviationName, request.CompanyId, request.Username, request.Action, request.DeviationCode);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetDeviationList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetDeviationList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No Deviation found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetDeviationDropList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetDeviationDropList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No Deviation found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
     }
 }

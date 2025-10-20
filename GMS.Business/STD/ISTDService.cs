@@ -49,5 +49,7 @@ namespace GMS.Business.STD
         Task<BaseResponse> GetStudioData(string cn, int companyId, int siteId, int studyId);
 
         Task<BaseResponse> PreAssignVolunteersToStudy(string cn, PreAssignVolunteersToStudyRequest request);
+
+        Task<BaseResponse> RemovePreAssigned(string cn, PreAssignVolunteersRemoveRequest request);
     }
 }

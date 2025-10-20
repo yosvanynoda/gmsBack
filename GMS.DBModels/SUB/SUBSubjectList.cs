@@ -25,6 +25,10 @@
 
         public DateTime RamdoDate { get; set; }
 
+        public int VolunteerId { get; set; }
+
+        public string SubjectCode { get; set; }
+
 
     }
 }

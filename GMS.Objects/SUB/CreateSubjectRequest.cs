@@ -6,5 +6,7 @@ namespace GMS.Objects.SUB
     {
         public List<SubjectData> SubjectData { get; set; } = [];
 
+        string SubjectCode { get; set; }
+
     }
 }

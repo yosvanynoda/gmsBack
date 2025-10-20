@@ -3,5 +3,7 @@
     public class CreateSubjectDataRequest
     {
         public List<SubjectData> SubjectData { get; set; } = [];
+
+        string SubjectCode { get; set; }
     }
 }
