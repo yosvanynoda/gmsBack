@@ -20,6 +20,8 @@
 
         public string ProtocolVersion { get; set; } = string.Empty;
 
+        public bool Signed { get; set; }
+
         public SUBConsent()
         {
             ConsentID = 0;
