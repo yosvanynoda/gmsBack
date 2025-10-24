@@ -2,6 +2,7 @@
 using GMS.DBModels.CMN;
 using GMS.DBModels.Helper;
 using GMS.DBModels.STD;
+using GMS.DBModels.VLT;
 using System.ComponentModel.Design;
 using System.Data;
 
@@ -1138,7 +1139,7 @@ namespace GMS.Data.DataHelper
         }
 
         public async Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
-            DataTable volunteerIds, int userId)
+            DataTable volunteerIds, int username)
         {
             try
             {
@@ -1165,8 +1166,8 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@VolunteerIds", volunteerIds.AsTableValuedParameter());
-                parameters.Add("@UserId", userId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@VolunteerIds", volunteerIds.AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@Username", username, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
 
@@ -1199,7 +1200,7 @@ namespace GMS.Data.DataHelper
             }
         }
 
-        public async Task<BaseResult> VLT_RemovePreAssigned(string cn, int companyId, int siteId, int studyId, int volunteerId, int userId)
+        public async Task<BaseResult> VLT_RemovePreAssigned(string cn, int companyId, int siteId, int studyId, int volunteerId, int username)
         {
             try
             {
@@ -1227,7 +1228,7 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@VolunteerId", volunteerId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@UserId", userId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Username", username, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
 

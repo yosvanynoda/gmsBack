@@ -318,5 +318,112 @@ namespace GMS.Data.DataHelper
             return response;
         }
 
+        public async Task<PayloadResult?> SUB_GetVisitPlanList(string cn, int companyId, int siteId, int subjectId, int studyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<SUBVisitPlanList>(cn, "SUB_GetVisitPlanList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResult> SUB_UpdateSubject(string cn, DataTable subDataUDT, DataTable dtConsent, DataTable dtEvent, DataTable dtDeviation)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+                if (subDataUDT == null || subDataUDT.Rows.Count == 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Subject is invalid."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@SUBDataUDT", subDataUDT.AsTableValuedParameter());
+
+                parameters.Add("@SUBConsent", dtConsent.AsTableValuedParameter());
+
+                parameters.Add("@SUBEvent", dtEvent.AsTableValuedParameter());
+
+                parameters.Add("@SUBDeviation", dtDeviation.AsTableValuedParameter());
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "SUB_UpdateSubjectData", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Subject created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
+
     }
 }

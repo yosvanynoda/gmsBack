@@ -10,6 +10,6 @@ namespace GMS.Objects.STD
 
         public int VolunteerId { get; set; } 
 
-        public int UserId { get; set; }
+        public int Username { get; set; }
     }
 }

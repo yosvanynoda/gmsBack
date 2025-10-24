@@ -138,5 +138,64 @@ namespace GMS.Business.SUB
             };
         }
 
+        public async Task<BaseResponse> GetVisitPlanList(string cn, SubjectStudyRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.SUB_GetVisitPlanList(cn, request.CompanyId, request.SiteId, request.SubjectId, request.StudyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No subjects found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> UpdateSubject(string cn, UpdateSubjectRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Subject cannot be empty."
+                };
+            }
+
+            var dtSubject = Helper.HelperUDT.ListToDataTable(request.SubjectGeneralData);
+
+            var dtConsent = Helper.HelperUDT.ListToDataTable(request.SubjectInformedConsent);
+
+            var dtEvent = Helper.HelperUDT.ListToDataTable(request.SubjectAdverseEvent);
+
+            var dtDeviation = Helper.HelperUDT.ListToDataTable(request.SubjectProtocolDeviation);
+
+
+            var result = await _dataHelper.SUB_UpdateSubject(cn, dtSubject, dtConsent, dtEvent, dtDeviation);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
     }
 }

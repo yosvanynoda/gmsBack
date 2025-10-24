@@ -16,5 +16,9 @@ namespace GMS.Business.SUB
         Task<BaseResponse> CreateSubject(string cn, CreateSubjectRequest request, string subjectCode);
 
         Task<BaseResponse> GetSubjectData(string cn, SubjectRequest request);
+
+        Task<BaseResponse> GetVisitPlanList(string cn, SubjectStudyRequest request);
+
+        Task<BaseResponse> UpdateSubject(string cn, UpdateSubjectRequest request);
     }
 }
