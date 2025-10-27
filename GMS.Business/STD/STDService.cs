@@ -631,10 +631,16 @@ namespace GMS.Business.STD
                 };
             }
 
-            var dtVolunteerIds = Helper.HelperUDT.ListToDataTable(request.VolunteerIds);
+            // Create DataTable for volunteer IDs to match IntListUDT structure
+            var dtVolunteerIds = new System.Data.DataTable();
+            dtVolunteerIds.Columns.Add("Value", typeof(int));
+            foreach (var volunteerId in request.VolunteerIds)
+            {
+                dtVolunteerIds.Rows.Add(volunteerId);
+            }
 
             var result = await _dataHelper.VLT_PreAssignVolunteersToStudy(cn, request.CompanyId, request.SiteId,
-                request.StudyId, dtVolunteerIds, request.UserId);
+                request.StudyId, dtVolunteerIds, request.Username);
 
             return new BaseResponse
             {
@@ -665,7 +671,7 @@ namespace GMS.Business.STD
             }
 
             var result = await _dataHelper.VLT_RemovePreAssigned(cn, request.CompanyId, request.SiteId,
-                request.StudyId, request.VolunteerId, request.UserId);
+                request.StudyId, request.VolunteerId, request.Username);
 
             return new BaseResponse
             {

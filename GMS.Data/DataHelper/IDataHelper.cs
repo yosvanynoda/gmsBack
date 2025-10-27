@@ -176,6 +176,10 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> SUB_GetSubjectData(string cn, int companyId, int siteId, int subjectId);
 
+        Task<PayloadResult?> SUB_GetVisitPlanList(string cn, int companyId, int siteId, int subjectId, int studyId);
+
+        Task<BaseResult> SUB_UpdateSubject(string cn, DataTable subDataUDT, DataTable dtConsent, DataTable dtEvent, DataTable dtDeviation);
+     
         #endregion
 
         #region VLT....
@@ -197,9 +201,9 @@ namespace GMS.Data.DataHelper
             string? currentStatus, bool excludeAlreadyAssigned, int? studyId, List<int>? diseaseIds, bool? healthy);
 
         Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
-            DataTable volunteerIds, int userId);
+            DataTable volunteerIds, int username);
 
-        Task<BaseResult> VLT_RemovePreAssigned(string cn, int companyId, int siteId, int studyId, int volunteerId, int userId);
+        Task<BaseResult> VLT_RemovePreAssigned(string cn, int companyId, int siteId, int studyId, int volunteerId, int username);
 
         Task<PayloadResult?> VLT_GetVolunteerHistory(string cn, int companyId, int siteId, int volunteerId);
 
@@ -207,6 +211,11 @@ namespace GMS.Data.DataHelper
 
         #endregion
 
+        #region GNR....
+
+        Task<PayloadResult?> GNR_GetDashboardStudyStats(string cn, int companyId, int siteId);
+
+        #endregion
         #endregion
 
     }

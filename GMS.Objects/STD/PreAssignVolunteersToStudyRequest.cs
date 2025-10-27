@@ -8,8 +8,8 @@ namespace GMS.Objects.STD
 
         public int StudyId { get; set; }
 
-        public List<int> VolunteerIds { get; set; } = new List<int>();
+        public List<int> VolunteerIds { get; set; } = [];
 
-        public int UserId { get; set; }
+        public int Username { get; set; }
     }
 }
