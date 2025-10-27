@@ -211,6 +211,11 @@ namespace GMS.Data.DataHelper
 
         #endregion
 
+        #region GNR....
+
+        Task<PayloadResult?> GNR_GetDashboardStudyStats(string cn, int companyId, int siteId);
+
+        #endregion
         #endregion
 
     }
