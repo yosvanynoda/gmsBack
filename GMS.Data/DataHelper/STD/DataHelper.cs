@@ -1166,7 +1166,7 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@VolunteerIds", volunteerIds.AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@VolunteerIds", volunteerIds.AsTableValuedParameter()); //"dbo.IntListTableType"
                 parameters.Add("@Username", username, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
