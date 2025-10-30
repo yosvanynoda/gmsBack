@@ -1,10 +1,15 @@
 ﻿namespace GMS.Objects.GNR
 {
-    public class GNRStudyStatusCount
+    public class GetActiveSubjectsCount
     {
-    public int StudioStatus { get; set; } = 0;
+
+     public int ActivePatients { get; set; } = 0;
   
-    public int TotalCount { get; set; } = 0;
+     public int EnrolledToday { get; set; } = 0;
+
+     public int EnrolledThisWeek { get; set; } = 0;
+
+     public int EnrolledThisMonth { get; set; } = 0;
 
     }
 }

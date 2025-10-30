@@ -9,6 +9,9 @@ namespace GMS.Business.GNR
        
         Task<BaseResponse> GetDashboardStudyStats(string cn, SiteRequest request);
 
-      
+        Task<BaseResponse> GetActiveSubjectsCount(string cn, SiteRequest request);
+
+        Task<BaseResponse> GetTodayVisitStatistics(string cn, SiteRequest request);
+
     }
 }
