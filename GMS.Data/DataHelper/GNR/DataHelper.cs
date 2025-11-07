@@ -55,8 +55,84 @@ namespace GMS.Data.DataHelper
             return response;
         }
 
+        public async Task<PayloadResult?> GNR_GetActiveSubjectsCount(string cn, int companyId, int siteId)
+        {
+            var response = new PayloadResult();
 
-       
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<GetActiveSubjectsCount>(cn, "GNR_GetActiveSubjectsCount", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<PayloadResult?> GNR_GetTodayVisitStatistics(string cn, int companyId, int siteId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<GetTodayVisitStatistics>(cn, "GNR_GetTodayVisitStatistics", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+
+
 
     }
 }

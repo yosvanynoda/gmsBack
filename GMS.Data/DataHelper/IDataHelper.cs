@@ -215,6 +215,10 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> GNR_GetDashboardStudyStats(string cn, int companyId, int siteId);
 
+        Task<PayloadResult?> GNR_GetActiveSubjectsCount(string cn, int companyId, int siteId);
+
+        Task<PayloadResult?> GNR_GetTodayVisitStatistics(string cn, int companyId, int siteId);
+
         #endregion
         #endregion
 

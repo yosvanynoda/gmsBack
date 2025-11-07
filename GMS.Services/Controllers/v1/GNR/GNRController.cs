@@ -46,7 +46,67 @@ namespace GMS.Services.Controllers.v1.GNR
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-        }      
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getactivesubjectscount")]
+        public async Task<IActionResult> GetActiveSubjectsCount(SiteRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetActiveSubjectsCount(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/gettodayvisitstatistics")]
+        public async Task<IActionResult> GetTodayVisitStatistics(SiteRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetTodayVisitStatistics(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
     }
 }
