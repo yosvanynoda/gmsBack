@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using GMS.Data.DataHelper;
+﻿using GMS.Data.DataHelper;
 using GMS.Objects.API;
 using GMS.Objects.General;
 using GMS.Objects.STD;
@@ -25,7 +24,7 @@ namespace GMS.Business.STD
 
             return new BaseResponse
             {
-                Data = null,
+                Data = result.Result,
                 Message = result.ResultMessage,
                 Success = result.Result >= 0,
             };
@@ -42,7 +41,7 @@ namespace GMS.Business.STD
                 };
             }
 
-            var result = await _dataHelper.STD_CrudProtocol(cn, request.Id,  request.Protocol,  request.DateCreated, request.Version, request.Notes, request.StartDate, request.EndDate,  request.CompanyId, request.Username, request.Action, request.SiteId);
+            var result = await _dataHelper.STD_CrudProtocol(cn, request.Id, request.Protocol, request.DateCreated, request.Version, request.Notes, request.StartDate, request.EndDate, request.CompanyId, request.Username, request.Action, request.SiteId);
 
 
             return new BaseResponse
@@ -64,8 +63,8 @@ namespace GMS.Business.STD
                 };
             }
 
-                  var result = await _dataHelper.STD_CrudSponsor(cn, request.SponsorName,  request.SponsorType, request.ContactName, request.ContactEmail, request.ContactPhone,
-                 request.CompanyId, request.SiteId, request.Id, request.Username, request.Action);
+            var result = await _dataHelper.STD_CrudSponsor(cn, request.SponsorName, request.SponsorType, request.ContactName, request.ContactEmail, request.ContactPhone,
+           request.CompanyId, request.SiteId, request.Id, request.Username, request.Action);
 
 
             return new BaseResponse
@@ -99,7 +98,7 @@ namespace GMS.Business.STD
 
             var dtVisits = Helper.HelperUDT.ListToDataTable(request.STDVisits);
 
-            var result = await _dataHelper.STD_CreateStudioData(cn, dtGeneralData, dtDocumentation, 
+            var result = await _dataHelper.STD_CreateStudioData(cn, dtGeneralData, dtDocumentation,
                 dtMonitor, dtProtocol, dtArms, dtVisits, request.CompanyId, request.SiteId, request.Username);
 
 
@@ -580,7 +579,7 @@ namespace GMS.Business.STD
                 Success = result.Result >= 0,
             };
         }
-       
+
         public async Task<BaseResponse> GetStudioData(string cn, int companyId, int siteId, int studyId)
         {
             if (siteId == null | studyId == null)
