@@ -7,5 +7,9 @@ namespace GMS.Business.PRJ
     {
 
         Task<BaseResponse> CreateStudioSubject(string cn, CreateStudioSubjectRequest request);
+
+        Task<BaseResponse> CreateVisit(string cn, CreateVisitRequest request);
+
+        Task<BaseResponse> CancelVisit(string cn, CancelVisitRequest request);
     }
 }

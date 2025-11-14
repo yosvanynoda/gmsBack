@@ -112,6 +112,10 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> PRJ_CreateStudioSubject(string cn, int subjectId, int studioId, DateTime startTime, DateTime endTime, int companyId);
 
+        Task<BaseResult> PRJ_CreateVisit(string cn, int visitId, int subjectId, int studioId, int staffId, DateTime visitDate, string notes);
+
+        Task<BaseResult> PRJ_CancelVisit(string cn, int visitId, int subjectId, int studioId, string notes);
+
         #endregion
 
         #region STD....

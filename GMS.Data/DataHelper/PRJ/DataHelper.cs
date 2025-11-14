@@ -82,5 +82,141 @@ namespace GMS.Data.DataHelper
                 };
             }
         }
+
+
+        public async Task<BaseResult> PRJ_CreateVisit(string cn, int visitId, int subjectId, int studioId, int staffId, DateTime visitDate, string notes)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+                if (visitId <= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Visit ID is invalid."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@VisitId", visitId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@StaffId", staffId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@VisitDate", visitDate, DbType.DateTime, ParameterDirection.Input);
+
+                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "PRJ_CreateVisit", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Visit created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
+
+        public async Task<BaseResult> PRJ_CancelVisit(string cn, int visitId, int subjectId, int studioId, string notes)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+                if (visitId <= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Visit ID is invalid."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@VisitId", visitId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "PRJ_CreateVisitCancelation", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Visit canceled successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
     }
 }
