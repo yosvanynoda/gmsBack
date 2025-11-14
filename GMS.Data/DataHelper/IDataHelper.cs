@@ -50,6 +50,8 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> CMN_GetDocTypeList(string cn, int companyId);
 
+        Task<PayloadResult?> CMN_GetDocTypeListDropList(string cn, int companyId);
+
         Task<PayloadResult?> CMN_GetRelationTypeList(string cn, int companyId);
 
         Task<PayloadResult?> CMN_GetDiseaseList(string cn, int companyId);
@@ -67,6 +69,8 @@ namespace GMS.Data.DataHelper
         Task<PayloadResult?> CMN_GetTaskList(string cn, int companyId);
 
         Task<PayloadResult?> CMN_GetStaffList(string cn, int companyId);
+
+        Task<PayloadResult?> CMN_GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId);
 
         Task<PayloadResult?> CMN_GetSponsorTypeList(string cn, int companyId);
 
@@ -89,6 +93,18 @@ namespace GMS.Data.DataHelper
         Task<PayloadResult?> CMN_GetCROList(string cn, int companyId);
 
         Task<BaseResult> CMN_CreateCRO(string cn, int id, string cro, string comment, int companyId, int username, int action);
+
+        Task<PayloadResult?> CMN_GetFlagDropList(string cn, int companyId);
+
+        Task<PayloadResult?> CMN_GetVLTStatusList(string cn, int companyId);
+
+        Task<BaseResult> CMN_CreateVLTStatus(string cn, int id, string name, string comment, int companyId, int username, int action);
+
+        Task<BaseResult> CMN_CreateDeviation(string cn, int DeviationId, string DeviationName, int companyId, int username, int action, string DeviationCode);
+
+        Task<PayloadResult?> CMN_GetDeviationList(string cn, int companyId);
+
+        Task<PayloadResult?> CMN_GetDeviationDropList(string cn, int companyId);
 
         #endregion
 
@@ -154,10 +170,16 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> SUB_CreateRandomCode(string cn, int subjectId, int studioId, string code, int companyId);
 
-        Task<BaseResult> SUB_CreateSubject(string cn, string fName, string lName, DateTime dob, string ssNumber, string email, string phone, int addressId, string id, int companyId);
+        Task<PayloadResult?> SUB_GetSubjectList(string cn, int companyId, int siteId);
 
-        Task<BaseResult> SUB_CreateSubjectData(string cn, DataTable subDataUDT);
+        Task<BaseResult> SUB_CreateSubject(string cn, DataTable subDataUDT, string subjectCode);
 
+        Task<PayloadResult?> SUB_GetSubjectData(string cn, int companyId, int siteId, int subjectId);
+
+        Task<PayloadResult?> SUB_GetVisitPlanList(string cn, int companyId, int siteId, int subjectId, int studyId);
+
+        Task<BaseResult> SUB_UpdateSubject(string cn, DataTable subDataUDT, DataTable dtConsent, DataTable dtEvent, DataTable dtDeviation);
+     
         #endregion
 
         #region VLT....
@@ -165,12 +187,39 @@ namespace GMS.Data.DataHelper
         Task<BaseResult> VLT_CreateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
                 DataTable dtDoc, DataTable dtEmergc, DataTable dtMed);
 
+        Task<BaseResult> VLT_UpdateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
+              DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, int companyId, int siteId, int username);
+
         Task<PayloadResult?> VLT_GetVolunteerList(string cn, int companyId, int siteId);
 
         Task<PayloadResult?> VLT_GetVolunteerData(string cn, int companyId, int siteId, int volunteerId);
 
+        Task<PayloadResult?> VLT_GetVLTStatusDropList(string cn, int companyId);
+
+        Task<PayloadResult?> VLT_SearchVolunteersForStudy(string cn, int companyId, int siteId, int? minAge,
+            int? maxAge, List<int>? genderIds, List<int>? raceIds, List<int>? ethnicityIds, List<int>? languageIds,
+            string? currentStatus, bool excludeAlreadyAssigned, int? studyId, List<int>? diseaseIds, bool? healthy);
+
+        Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
+            DataTable volunteerIds, int username);
+
+        Task<BaseResult> VLT_RemovePreAssigned(string cn, int companyId, int siteId, int studyId, int volunteerId, int username);
+
+        Task<PayloadResult?> VLT_GetVolunteerHistory(string cn, int companyId, int siteId, int volunteerId);
+
+        Task<PayloadResult?> VLT_GetVolunteerPreSelectedList(string cn, int companyId, int siteId, int studyId);
+
         #endregion
 
+        #region GNR....
+
+        Task<PayloadResult?> GNR_GetDashboardStudyStats(string cn, int companyId, int siteId);
+
+        Task<PayloadResult?> GNR_GetActiveSubjectsCount(string cn, int companyId, int siteId);
+
+        Task<PayloadResult?> GNR_GetTodayVisitStatistics(string cn, int companyId, int siteId);
+
+        #endregion
         #endregion
 
     }

@@ -2,6 +2,7 @@
 using GMS.DBModels.CMN;
 using GMS.DBModels.Helper;
 using GMS.DBModels.STD;
+using GMS.DBModels.VLT;
 using System.ComponentModel.Design;
 using System.Data;
 
@@ -1135,6 +1136,129 @@ namespace GMS.Data.DataHelper
             }
 
             return response;
+        }
+
+        public async Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
+            DataTable volunteerIds, int username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (volunteerIds == null || volunteerIds.Rows.Count == 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "No volunteers selected for pre-assignment."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@VolunteerIds", volunteerIds.AsTableValuedParameter()); //"dbo.IntListTableType"
+                parameters.Add("@Username", username, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "VLT_PreAssignVolunteersToStudy", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = $"{result.Result} volunteer(s) pre-assigned to study successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
+        public async Task<BaseResult> VLT_RemovePreAssigned(string cn, int companyId, int siteId, int studyId, int volunteerId, int username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (volunteerId == null || studyId == null)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "No volunteers selected for remove pre-assignment."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@VolunteerId", volunteerId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Username", username, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 250);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "VLT_RemovePreAssigned", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Volunteer removed  successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
         }
 
     }

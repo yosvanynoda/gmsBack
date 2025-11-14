@@ -1,4 +1,7 @@
 ﻿using GMS.Business.VLT;
+using GMS.Objects.General;
+using GMS.Objects.STD;
+using GMS.Objects.SUB;
 using GMS.Objects.VLT;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +46,37 @@ using Microsoft.AspNetCore.Mvc;
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/updatevolunteer")]
+        public async Task<IActionResult> UpdateVolunteer(CreateVolunteerDataRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.UpdateVolunteerData(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/getvolunteerlist")]
@@ -103,5 +137,126 @@ using Microsoft.AspNetCore.Mvc;
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvltstatusdroplist")]
+        public async Task<IActionResult> GetVLTStatusDropList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVLTStatusDropList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/searchvolunteersforstudy")]
+        public async Task<IActionResult> SearchVolunteersForStudy(VolunteerSearchRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.SearchVolunteersForStudy(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvolunteerhistory")]
+        public async Task<IActionResult> GetVolunteerHistory(VolunteerRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVolunteerHistory(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvolunteerpreselectedlist")]
+        public async Task<IActionResult> GetVolunteerPreSelectedList(StudioDataRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVolunteerPreSelectedList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }        
     }
 }

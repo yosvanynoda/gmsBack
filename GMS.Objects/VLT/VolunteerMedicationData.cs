@@ -7,6 +7,8 @@
        
         public int VId { get; set; } = 0;
 
+        public int MedicationId { get; set; } = 0;
+
         public string DrogName { get; set; }
 
         public string DrogDose { get; set; }
@@ -20,6 +22,7 @@
         public bool Active { get; set; }
 
         public int SiteId { get; set; } = 0;
+        
 
         public VolunteerMedicationData()
         {

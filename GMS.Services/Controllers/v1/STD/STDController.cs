@@ -1,6 +1,7 @@
 ﻿using GMS.Business.STD;
 using GMS.Objects.General;
 using GMS.Objects.STD;
+using GMS.Objects.VLT;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GMS.Services.Controllers.v1.STD
@@ -528,18 +529,18 @@ namespace GMS.Services.Controllers.v1.STD
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/getstudiodroplist")]
-        public async Task<IActionResult> GetStudioDropList(int companyId, int siteId)
+        public async Task<IActionResult> GetStudioDropList(GeneralCompanySiteRequest request)
         {
             try
             {
-                if (companyId == null | siteId == null)
+                if (request == null)
                 {
                     return BadRequest("Invalid request data.");
                 }
 
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
-                var result = await _service.GetStudioDropList(cn, companyId, siteId);
+                var result = await _service.GetStudioDropList(cn, request.CompanyId, request.SiteId);
 
                 if (!result.Success)
                 {
@@ -630,6 +631,66 @@ namespace GMS.Services.Controllers.v1.STD
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
                 var result = await _service.GetStudioData(cn, request.CompanyId, request.SiteId, request.StudyId);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/preassignvolunteerstostudy")]
+        public async Task<IActionResult> PreAssignVolunteersToStudy(PreAssignVolunteersToStudyRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.PreAssignVolunteersToStudy(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/removepreassigned")]
+        public async Task<IActionResult> RemovePreAssigned(PreAssignVolunteersRemoveRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.RemovePreAssigned(cn, request);
 
                 if (!result.Success)
                 {

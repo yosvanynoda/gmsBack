@@ -8,7 +8,7 @@ namespace GMS.Objects.STD
 
         public List<CMNDocumentationUDT> STDDocumentation { get; set; } = [];
 
-        public List<CMNValueIntUDT> STDMonitor { get; set; } = [];
+        public List<STDStudioRoleUDT> STDMonitor { get; set; } = [];
 
         public List<STDProtocolUDT> STDProtocol { get; set; } = [];
 

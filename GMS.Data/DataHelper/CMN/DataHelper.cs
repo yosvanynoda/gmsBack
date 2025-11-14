@@ -236,7 +236,7 @@ namespace GMS.Data.DataHelper
                     return new BaseResult
                     {
                         Result = -99,
-                        ResultMessage = "Disease name is null or empty."
+                        ResultMessage = "Relation name is null or empty."
                     };
                 }
 
@@ -1076,6 +1076,42 @@ namespace GMS.Data.DataHelper
             return response;
         }
 
+        public async Task<PayloadResult?> CMN_GetDocTypeListDropList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "CMN_GetDocTypeDropList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
         public async Task<PayloadResult?> CMN_GetRoleTypeList(string cn, int companyId)
         {
             var response = new PayloadResult();
@@ -1292,6 +1328,44 @@ namespace GMS.Data.DataHelper
             return response;
         }
 
+
+        public async Task<PayloadResult?> CMN_GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StaffId", staffId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<CMNStaffStudio>(cn, "CMN_GetStaffStudio", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "No data found.";
+                    response.Data = new List<CMNStaffStudio>();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
 
         public async Task<PayloadResult?> CMN_GetStaffList(string cn, int companyId)
         {
@@ -1901,6 +1975,292 @@ namespace GMS.Data.DataHelper
                     ResultMessage = ex.Message
                 };
             }
+        }
+
+        public async Task<PayloadResult?> CMN_GetFlagDropList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);                
+
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "CMN_GetFlagDropList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<PayloadResult?> CMN_GetVLTStatusList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<CMNVLTStatus>(cn, "CMN_GetVLTStatus", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResult> CMN_CreateVLTStatus(string cn, int id, string name, string comment, int companyId, int username, int action)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Contract research org is null or empty."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@Id", id, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Name", name, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@Comment", comment, DbType.String, ParameterDirection.Input, size: 400);
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@UserName", username, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Action", action, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "CMN_CrudVLTStatus", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Volunteer status created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
+
+        public async Task<BaseResult> CMN_CreateDeviation(string cn, int DeviationId, string DeviationName, int companyId, int username, int action, string DeviationCode)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (string.IsNullOrEmpty(DeviationName))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Deviation name is null or empty."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@Id", DeviationId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@DeviationName", DeviationName, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@UserName", username, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Action", action, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@DeviationCode", DeviationCode, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "CMN_CrudDeviation", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Deviation created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+
+        }
+
+        public async Task<PayloadResult?> CMN_GetDeviationList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<CMNDeviation>(cn, "CMN_GetDeviationList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<PayloadResult?> CMN_GetDeviationDropList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<DropListBaseResponse>(cn, "CMN_GetDeviationDropList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
         }
 
     }

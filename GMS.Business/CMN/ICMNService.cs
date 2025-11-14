@@ -32,7 +32,9 @@ namespace GMS.Business.CMN
 
         Task<BaseResponse> CreateStaffDocument(string cn, CreateStaffDocumentRequest request);
         
-        Task<BaseResponse> GetDocTypeList(string cn, GeneralRequest request); 
+        Task<BaseResponse> GetDocTypeList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetDocTypeListDropList(string cn, GeneralRequest request);
 
         Task<BaseResponse> GetSponsorTypeList(string cn, GeneralRequest request);
         
@@ -51,6 +53,8 @@ namespace GMS.Business.CMN
         Task<BaseResponse> GetTaskList(string cn, GeneralRequest request);
 
         Task<BaseResponse> GetStaffList(string cn, GeneralRequest  request);
+
+        Task<BaseResponse> GetStaffStudio(string cn, int companyId, int siteId, int? staffId, int? studioId);
 
         Task<BaseResponse> GetStaffDocumentList(string cn, StaffDocRequest request);
 
@@ -75,5 +79,18 @@ namespace GMS.Business.CMN
         Task<BaseResponse> GetCROList(string cn, GeneralRequest request);
 
         Task<BaseResponse> CreateCRO(string cn, CreateCRORequest request);
+
+        Task<BaseResponse> GetFlagDropList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetVLTStatusList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> CreateVLTStatus(string cn, CreateVLTStatusRequest request);
+
+        Task<BaseResponse> CreateDeviation(string cn, CreateDeviationRequest request);
+
+        Task<BaseResponse> GetDeviationList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetDeviationDropList(string cn, GeneralRequest request);
+
     }
 }
