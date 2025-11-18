@@ -111,17 +111,17 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
 
-                parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudyId", studioId, DbType.Int32, ParameterDirection.Input);
 
                 parameters.Add("@StaffId", staffId, DbType.Int32, ParameterDirection.Input);
 
                 parameters.Add("@VisitDate", visitDate, DbType.DateTime, ParameterDirection.Input);
 
-                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input);
-
+                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input, size: 400);
+                
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "PRJ_CreateVisit", parameters);
 
@@ -181,13 +181,13 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
 
-                parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudyId", studioId, DbType.Int32, ParameterDirection.Input);
 
-                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input);
+                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input, size: 400);
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output);
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "PRJ_CreateVisitCancelation", parameters);
 
