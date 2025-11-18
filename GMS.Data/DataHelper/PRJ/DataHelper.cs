@@ -39,15 +39,15 @@ namespace GMS.Data.DataHelper
 
                 var parameters = new DynamicParameters();
 
-                parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SubjectId", subjectId);
 
-                parameters.Add("@StudioId", studioId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudioId", studioId);
 
-                parameters.Add("@StartDate", startDate, DbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@StartDate", startDate);
 
-                parameters.Add("@EndDate", endDate, DbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@EndDate", endDate);
 
-                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@CompanyId", companyId);
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -107,17 +107,17 @@ namespace GMS.Data.DataHelper
 
                 var parameters = new DynamicParameters();
 
-                parameters.Add("@VisitId", visitId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@VisitId", visitId);
 
-                parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SubjectId", subjectId);
 
-                parameters.Add("@StudyId", studioId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudyId", studioId);
 
-                parameters.Add("@StaffId", staffId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StaffId", staffId);
 
-                parameters.Add("@VisitDate", visitDate, DbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@VisitDate", visitDate);
 
-                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input, size: 400);
+                parameters.Add("@Notes", notes);
                 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -177,13 +177,13 @@ namespace GMS.Data.DataHelper
 
                 var parameters = new DynamicParameters();
 
-                parameters.Add("@VisitId", visitId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@VisitId", visitId);
 
-                parameters.Add("@SubjectId", subjectId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SubjectId", subjectId);
 
-                parameters.Add("@StudyId", studioId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@StudyId", studioId);
 
-                parameters.Add("@Notes", notes, DbType.String, ParameterDirection.Input, size: 400);
+                parameters.Add("@Notes", notes);
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 

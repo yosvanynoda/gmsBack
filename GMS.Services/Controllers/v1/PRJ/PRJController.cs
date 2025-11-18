@@ -46,7 +46,7 @@ namespace GMS.Services.Controllers.v1.PRJ
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/createvisit")]
-        public async Task<IActionResult> CreateVisit( CreateVisitRequest request)
+        public async Task<IActionResult> CreateVisit(CreateVisitRequest request)
         {
             try
             {
