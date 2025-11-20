@@ -1,5 +1,7 @@
 ﻿using GMS.Business.PRJ;
+using GMS.Objects.General;
 using GMS.Objects.PRJ;
+using GMS.Objects.STD;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GMS.Services.Controllers.v1.PRJ
@@ -88,6 +90,69 @@ namespace GMS.Services.Controllers.v1.PRJ
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
                 var result = await _service.CancelVisit(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvisitschedule")]
+        public async Task<IActionResult> GetVisitSchedule(VisitScheduleRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVisitSchedule(cn, request.CompanyId, request.SiteId, request.ScheduleDate);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+             
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/createsubjectchecking")]
+        public async Task<IActionResult> CreateSubjectChecking(CreateCheckingRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.CreateSubjectChecking(cn, request);
 
                 if (!result.Success)
                 {

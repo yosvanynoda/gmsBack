@@ -116,6 +116,10 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> PRJ_CancelVisit(string cn, int visitId, int subjectId, int studioId, string notes);
 
+        Task<PayloadResult> PRJ_GetVisitSchedule (string cn, int companyId, int siteId, DateTime scheduleDate);
+
+        Task<BaseResult> PRJ_CreateSubjectChecking(string cn, int visitId, int subjectId, int studioId);
+
         #endregion
 
         #region STD....

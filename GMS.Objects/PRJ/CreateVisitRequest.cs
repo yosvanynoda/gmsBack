@@ -12,6 +12,6 @@
 
         public DateTime VisitDate { get; set; }
 
-        public string Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
     }
 }
