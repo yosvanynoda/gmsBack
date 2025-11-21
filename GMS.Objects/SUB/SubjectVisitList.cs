@@ -18,7 +18,7 @@ namespace GMS.Objects.SUB
 
         public int StudyId { get; set; }
 
-        public string VisitName { get; set; }
+        public string VisitName { get; set; } = string.Empty;
 
         public int DayOffset { get; set; }
 
@@ -37,5 +37,7 @@ namespace GMS.Objects.SUB
         public int StaffId { get; set; }
 
         public string StaffName { get; set; } = string.Empty;
+
+      
     }
 }

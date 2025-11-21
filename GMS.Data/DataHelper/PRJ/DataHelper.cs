@@ -245,7 +245,7 @@ namespace GMS.Data.DataHelper
                 }
                 else
                 {
-                    response.Result = -99;
+                    response.Result = 0;
                     response.ResultMessage = "No data found.";
                 }
 

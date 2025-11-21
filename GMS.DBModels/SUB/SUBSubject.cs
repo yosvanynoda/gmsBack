@@ -17,6 +17,7 @@
         public string StudyName { get; set; }
 
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
 
         public DateTime SubjectDOB { get; set; }
@@ -24,7 +25,11 @@
 
         public string RandomCode { get; set; }
 
-        public DateTime RamdoDate { get; set; }   
+        public DateTime RamdoDate { get; set; }
+
+        public int VolunteerId { get; set; }
+
+        public string SubjectCode { get; set; } = string.Empty;
 
         public SUBSubject()
         {
