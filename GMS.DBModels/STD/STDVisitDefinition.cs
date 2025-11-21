@@ -1,69 +1,71 @@
-﻿namespace GMS.DBModels.STD
+﻿using System.Xml.Linq;
+
+namespace GMS.DBModels.STD
 {
     /// <summary>
     /// STDMonitor
     /// </summary>
-    public class STDMonitor
+    public class STDVisitDefinition
     {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public int Id { get; set; }
 
-        /// <summary>
-        /// FirstName
-        /// </summary>
-        public string FirstName { get; set; }
+        public int VisitID { get; set; }
 
-        /// <summary>
-        /// LastName
-        /// </summary>
-        public string LastName { get; set; }
+        public int StudyID { get; set; }
 
-        /// <summary>
-        /// Email
-        /// </summary>
-        public string Email { get; set; }
+        public int? ArmID { get; set; }
 
-        /// <summary>
-        /// Phone
-        /// </summary>
-        public string Phone { get; set; }
+        public string Name { get; set; }
 
-        /// <summary>
-        /// Role
-        /// </summary>
-        public string Role { get; set; }
+        public int DayOffset { get; set; }
 
-        /// <summary>
-        /// ActionDate
-        /// </summary>
-        public DateTime ActionDate { get; set; }
+        public int WindowMinus { get; set; }
 
-        /// <summary>
-        /// CompanyId
-        /// </summary>
-        public int CompanyId { get; set; }
+        public int WindowPlus { get; set; }
 
+        public bool RequiredFlag { get; set; }
 
-        public int SiteId { get; set; }
+        public int SortOrder { get; set; }
 
-        /// <summary>
-        /// STDMonitor
-        /// </summary>
-        public STDMonitor()
+        public int UserName { get; set; }
+
+        public DateTime? ActionDateTime { get; set; }
+
+        public bool Active { get; set; }
+
+        public DateTime? LastUpdateAt { get; set; }
+
+        public int? CompanyId { get; set; }
+
+        public int? SiteId { get; set; }
+
+        public string Comment { get; set; }
+
+        public int? DependencyOf { get; set; }
+
+        public double? Cost { get; set; }
+
+        public int? VisitType { get; set; }
+
+        public STDVisitDefinition()
         {
-            FirstName = "";
+            Name = "";
 
-            LastName = "";
-
-            Email = "";
-
-            Phone = "";
-
-            Role = "";
-
+            Comment = "";
         }
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
