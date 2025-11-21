@@ -5,47 +5,70 @@ namespace GMS.DBModels.STD
     /// <summary>
     /// STDMonitor
     /// </summary>
-    public class STDVisitDefinition
+    public class STDMonitor
     {
-   
-        public int VisitID { get; set; }
+      
+       /// <summary>
+        /// Id
+        /// </summary>
+        public int Id { get; set; }
 
-       public int StudyID { get; set; }
+        /// <summary>
+        /// FirstName
+        /// </summary>
+        public string FirstName { get; set; }
 
-        public int? ArmID { get; set; }
+        /// <summary>
+        /// LastName
+        /// </summary>
+        public string LastName { get; set; }
 
-        public string Name { get; set; }
+        /// <summary>
+        /// Email
+        /// </summary>
+        public string Email { get; set; }
 
-        public int DayOffset { get; set; }
+        /// <summary>
+        /// Phone
+        /// </summary>
+        public string Phone { get; set; }
 
-        public int WindowMinus { get; set; }
+        /// <summary>
+        /// Role
+        /// </summary>
+        public string Role { get; set; }
 
-        public int WindowPlus { get; set; }
+        /// <summary>
+        /// ActionDate
+        /// </summary>
+        public DateTime ActionDate { get; set; }
 
-        public bool RequiredFlag { get; set; }
+        /// <summary>
+        /// CompanyId
+        /// </summary>
+        public int CompanyId { get; set; }
 
-        public int SortOrder { get; set; }
 
-        public int UserName { get; set; }
+        public int SiteId { get; set; }
 
-        public DateTime? ActionDateTime { get; set; }
-
-        public bool Active { get; set; }
-
-        public DateTime? LastUpdateAt { get; set; }
-
-        public int? CompanyId { get; set; }
-
-        public int? SiteId { get; set; }
-
-        public string Comment { get; set; }
-
-        public STDVisitDefinition()
+        /// <summary>
+        /// STDMonitor
+        /// </summary>
+        public STDMonitor()
         {
-            Name = "";         
+            FirstName = "";
 
-            Comment = "";
+            LastName = "";
+
+            Email = "";
+
+            Phone = "";
+
+            Role = "";
+
         }
 
     }
+
 }
+
