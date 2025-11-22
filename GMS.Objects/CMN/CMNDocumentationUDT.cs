@@ -23,5 +23,7 @@
         public bool Active { get; set; } = false;
 
         public int SiteId { get; set; } = 0;
+
+        public string DocPath { get; set; } = string.Empty;
     }
 }
