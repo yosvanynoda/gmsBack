@@ -50,6 +50,6 @@ namespace GMS.Business.STD
 
         Task<BaseResponse> PreAssignVolunteersToStudy(string cn, PreAssignVolunteersToStudyRequest request);
 
-        Task<BaseResponse> RemovePreAssigned(string cn, PreAssignVolunteersRemoveRequest request);
+        Task<BaseResponse> RemovePreAssigned(string cn, PreAssignVolunteersRemoveRequest request);       
     }
 }

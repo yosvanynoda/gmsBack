@@ -77,7 +77,7 @@ namespace GMS.Business.PRJ
             };
         }
 
-        public async Task<BaseResponse> GetVisitSchedule(string cn, int companyId, int siteId, DateTime scheduleDate)
+        public async Task<BaseResponse> GetVisitSchedule(string cn, int companyId, int siteId, DateTime startDate, DateTime endDate)
         {
             if (companyId == null)
             {
@@ -88,7 +88,7 @@ namespace GMS.Business.PRJ
                 };
             }
 
-            var result = await _dataHelper.PRJ_GetVisitSchedule(cn, companyId, siteId, scheduleDate);
+            var result = await _dataHelper.PRJ_GetVisitSchedule(cn, companyId, siteId, startDate, endDate);
 
             if (result == null)
             {
@@ -120,6 +120,28 @@ namespace GMS.Business.PRJ
             }
 
             var result = await _dataHelper.PRJ_CreateSubjectChecking(cn, request.VisitId, request.SubjectId, request.StudioId);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> CreateSubjectVisitCompleted(string cn, CreateCheckingRequest request)
+        {
+
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Visit data cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.PRJ_CreateSubjectVisitCompleted(cn, request.VisitId, request.SubjectId, request.StudioId);
 
             return new BaseResponse
             {

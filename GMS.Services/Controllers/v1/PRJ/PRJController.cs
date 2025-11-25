@@ -121,7 +121,7 @@ namespace GMS.Services.Controllers.v1.PRJ
 
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
-                var result = await _service.GetVisitSchedule(cn, request.CompanyId, request.SiteId, request.ScheduleDate);
+                var result = await _service.GetVisitSchedule(cn, request.CompanyId, request.SiteId, request.StartDate, request.EndDate);
 
                 if (!result.Success)
                 {
@@ -153,6 +153,36 @@ namespace GMS.Services.Controllers.v1.PRJ
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
                 var result = await _service.CreateSubjectChecking(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/createsubjectvisitcompleted")]
+        public async Task<IActionResult> CreateSubjectVisitCompleted(CreateCheckingRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.CreateSubjectVisitCompleted(cn, request);
 
                 if (!result.Success)
                 {
