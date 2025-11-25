@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GMS.DBModels\GMS.DBModels.csproj" />
+    <ProjectReference Include="..\GMS.Objects\GMS.Objects.csproj" />
   </ItemGroup>
 
 </Project>

@@ -222,7 +222,7 @@ namespace GMS.Data.DataHelper
             }
         }
 
-        public async Task<PayloadResult?> PRJ_GetVisitSchedule(string cn, int companyId, int siteId, DateTime  scheduleDate )
+        public async Task<PayloadResult?> PRJ_GetVisitSchedule(string cn, int companyId, int siteId, DateTime  startDate, DateTime endDate )
         {
             var response = new PayloadResult();
 
@@ -233,7 +233,8 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@SiteId", siteId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@Date", scheduleDate);
+                parameters.Add("@StartDate", startDate);
+                parameters.Add("@EndDate", endDate);
 
                 var result = await QueryStoreProcedure<SubjectVisitDetails>(cn, "PRJ_GetVisitSchedule", parameters, 0);
 
@@ -322,5 +323,69 @@ namespace GMS.Data.DataHelper
                 };
             }
         }
+
+        public async Task<BaseResult> PRJ_CreateSubjectVisitCompleted(string cn, int visitId, int subjectId, int studioId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+                if (visitId <= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Visit ID is invalid."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@VisitId", visitId);
+
+                parameters.Add("@SubjectId", subjectId);
+
+                parameters.Add("@StudyId", studioId);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "PRJ_SubjectVisitCompleted", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Completed visit created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+        }
+
     }
 }

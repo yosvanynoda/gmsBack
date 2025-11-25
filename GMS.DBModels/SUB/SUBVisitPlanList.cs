@@ -32,6 +32,8 @@
 
         public int CompanyId { get; set; }
 
+        public int SortOrder { get; set; }
+
         public int SiteId { get; set; }
 
         public string VisitComment { get; set; }
@@ -39,6 +41,8 @@
         public int StaffId { get; set; }
 
         public string StaffName { get; set; }
+
+        public string SubjectName { get; set; }
 
     }
 }

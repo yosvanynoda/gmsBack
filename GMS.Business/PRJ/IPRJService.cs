@@ -14,10 +14,12 @@ namespace GMS.Business.PRJ
 
         Task<BaseResponse> CancelVisit(string cn, CancelVisitRequest request);
 
-        Task<BaseResponse> GetVisitSchedule(string cn, int companyId, int siteId, DateTime scheduleDate);
+        Task<BaseResponse> GetVisitSchedule(string cn, int companyId, int siteId, DateTime startDate, DateTime endDate);
 
         Task<BaseResponse> CreateSubjectChecking(string cn, CreateCheckingRequest request);
 
-        
+        Task<BaseResponse> CreateSubjectVisitCompleted(string cn, CreateCheckingRequest request);
+
+
     }
 }

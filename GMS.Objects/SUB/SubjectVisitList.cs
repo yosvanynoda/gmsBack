@@ -38,6 +38,7 @@ namespace GMS.Objects.SUB
 
         public string StaffName { get; set; } = string.Empty;
 
-      
+        public string SubjectName { get; set; } = string.Empty;
+
     }
 }
