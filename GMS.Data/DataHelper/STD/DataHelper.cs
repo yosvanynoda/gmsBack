@@ -63,22 +63,11 @@ namespace GMS.Data.DataHelper
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "STD_CrudMonitor", parameters);
 
-                if (result.Result >= 0)
+                return new BaseResult
                 {
-                    return new BaseResult
-                    {
-                        Result = 0,
-                        ResultMessage = "Monitor created successfully."
-                    };
-                }
-                else
-                {
-                    return new BaseResult
-                    {
-                        Result = result.Result,
-                        ResultMessage = result.ResultMessage
-                    };
-                }
+                    Result = result.Result,
+                    ResultMessage = result.Result >= 0 ? "Monitor created successfully." : result.ResultMessage
+                };
             }
             catch (Exception ex)
             {
