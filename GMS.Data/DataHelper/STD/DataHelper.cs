@@ -1105,9 +1105,9 @@ namespace GMS.Data.DataHelper
                 var result = new
                 {
                     Header = query.GridReader.Read<STDGeneralData>()?.FirstOrDefault(),
-                    Arms = query.GridReader.Read<STDArms>()?.ToList(),
                     Monitors = query.GridReader.Read<STDMonitor>()?.ToList(),
-                    Staffs = query.GridReader.Read<CMNStaff>()?.ToList(),
+                    Protocol = query.GridReader.Read<STDProtocol>()?.ToList(),
+                    Arms = query.GridReader.Read<STDArms>()?.ToList(),
                     Documentation = query.GridReader.Read<STDDocumentation>()?.ToList(),
                     VisitDefinition = query.GridReader.Read<STDVisitDefinition>()?.ToList()
                 };
