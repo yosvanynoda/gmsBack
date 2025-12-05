@@ -58,6 +58,7 @@
 
         public string Cro { get; set; }
 
+        public string Team { get; set; }
 
         public StudioListResponse()
         {
@@ -78,6 +79,8 @@
             SiteName = "";
 
             Cro = "";
+
+            Team = "";
 
         }
 

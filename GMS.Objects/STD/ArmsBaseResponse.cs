@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace GMS.DBModels.STD
+namespace GMS.Objects.STD
 {
-    /// <summary>
-    /// STDArms
-    /// </summary>
-    public class STDArms
+    public class ArmsBaseResponse
     {
         [JsonProperty("armID")]
         public int ArmId { get; set; }
@@ -36,8 +33,5 @@ namespace GMS.DBModels.STD
 
         [JsonProperty("lastUpdateAt")]
         public DateTime? LastUpdateAt { get; set; }
-
-
     }
-
 }
