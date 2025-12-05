@@ -24,6 +24,6 @@
 
         public int SiteId { get; set; } = 0;
 
-        public string DocPath { get; set; } = string.Empty;
+        public string? DocPath { get; set; } = string.Empty;
     }
 }
