@@ -30,5 +30,7 @@
         public int? SiteId { get; set; }
 
         public string FlagColor { get; set; }
+
+        public string FlagName { get; set; }
     }
 }

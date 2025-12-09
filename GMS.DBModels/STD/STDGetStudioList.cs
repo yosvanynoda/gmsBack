@@ -61,6 +61,8 @@
 
         public string Cro { get; set; }
 
+        public string Team { get; set; }
+
 
         public STDGetStudioList()
         {

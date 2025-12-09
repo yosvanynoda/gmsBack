@@ -2,20 +2,26 @@
 {
     public class SubjectProtocolDeviation
     {
-        public int SubjectId { get; set; }
+        public int PDevID { get; set; }
 
-        public int VolunteerId { get; set; }
+        public int StudyID { get; set; }
 
-        public int StudyId { get; set; }
+        public int SubjectID { get; set; }
 
-        public int CompanyId { get; set; }
+        public int VisitID { get; set; }
 
-        public int SiteId { get; set; }
+        public int CategoryId { get; set; }
 
-        public int UserNameId { get; set; }
+        public string Description { get; set; } = string.Empty;
 
-        public string CurrentStatus { get; set; } = string.Empty;
+        public string Severity { get; set; } = string.Empty;
 
-        public int CurrentStatusId { get; set; }
+        public DateTime ReportedDate { get; set; }
+
+        public string Outcome { get; set; } = string.Empty;
+
+        public int UserName { get; set; }
+
+        public bool Active { get; set; }
     }
 }

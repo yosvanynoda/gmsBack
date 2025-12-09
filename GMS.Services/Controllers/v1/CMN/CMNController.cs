@@ -1315,5 +1315,35 @@ namespace GMS.Services.Controllers.V1.CMN
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getteamdroplist")]
+        public async Task<IActionResult> GetTeamDropList(GeneralSiteRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetTeamDropList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

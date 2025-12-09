@@ -63,22 +63,11 @@ namespace GMS.Data.DataHelper
 
                 var result = await ExecuteStoreProcedureWithResult(cn, "STD_CrudMonitor", parameters);
 
-                if (result.Result >= 0)
+                return new BaseResult
                 {
-                    return new BaseResult
-                    {
-                        Result = 0,
-                        ResultMessage = "Monitor created successfully."
-                    };
-                }
-                else
-                {
-                    return new BaseResult
-                    {
-                        Result = result.Result,
-                        ResultMessage = result.ResultMessage
-                    };
-                }
+                    Result = result.Result,
+                    ResultMessage = result.Result >= 0 ? "Monitor created successfully." : result.ResultMessage
+                };
             }
             catch (Exception ex)
             {
@@ -1115,12 +1104,12 @@ namespace GMS.Data.DataHelper
 
                 var result = new
                 {
-                    Header = query.GridReader.Read<STDGeneralData>()?.FirstOrDefault(),
-                    Arms = query.GridReader.Read<STDArms>()?.ToList(),
-                    Monitors = query.GridReader.Read<STDMonitor>()?.ToList(),
-                    Staffs = query.GridReader.Read<CMNStaff>()?.ToList(),
-                    Documentation = query.GridReader.Read<STDDocumentation>()?.ToList(),
-                    VisitDefinition = query.GridReader.Read<STDVisitDefinition>()?.ToList()
+                    header = query.GridReader.Read<STDGeneralData>()?.FirstOrDefault(),
+                    monitors = query.GridReader.Read<STDMonitor>()?.ToList(),
+                    protocol = query.GridReader.Read<STDProtocol>()?.ToList(),
+                    arms = query.GridReader.Read<STDArms>()?.ToList(),
+                    documentation = query.GridReader.Read<STDDocumentation>()?.ToList(),
+                    visitDefinition = query.GridReader.Read<STDVisitDefinition>()?.ToList()
                 };
 
                 response.Result = 0;

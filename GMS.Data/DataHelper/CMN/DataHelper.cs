@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using GMS.DBModels.CMN;
 using GMS.DBModels.Helper;
+using GMS.Objects.CMN;
 using System.Data;
 
 namespace GMS.Data.DataHelper
@@ -2263,7 +2264,43 @@ namespace GMS.Data.DataHelper
             return response;
         }
 
+        public async Task<PayloadResult?> CMN_GetTeamDropList(string cn, int companyId, int siteId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@SiteId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<TeamBaseResponse>(cn, "CMN_GetTeamDropList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+
     }
-
-
 }

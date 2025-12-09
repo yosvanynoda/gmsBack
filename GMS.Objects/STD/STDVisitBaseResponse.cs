@@ -1,12 +1,8 @@
-﻿using System.Xml.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace GMS.DBModels.STD
+namespace GMS.Objects.STD
 {
-    /// <summary>
-    /// STDVisitDefinition
-    /// </summary>
-    public class STDVisitDefinition
+    public class STDVisitBaseResponse
     {
         [JsonProperty("visitID")]
         public int VisitID { get; set; }
@@ -67,27 +63,5 @@ namespace GMS.DBModels.STD
 
         [JsonProperty("visitType")]
         public int? VisitType { get; set; }
-
-        public STDVisitDefinition()
-        {
-            Name = "";
-
-            Comment = "";
-        }
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

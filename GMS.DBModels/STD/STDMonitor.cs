@@ -1,51 +1,86 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace GMS.DBModels.STD
 {
     /// <summary>
     /// STDMonitor
     /// </summary>
-    public class STDVisitDefinition
+    public class STDMonitor
     {
-   
-        public int VisitID { get; set; }
 
-       public int StudyID { get; set; }
+       /// <summary>
+        /// Id
+        /// </summary>
+        [JsonProperty("monitorId")]
+        public int Id { get; set; }
 
-        public int? ArmID { get; set; }
+        /// <summary>
+        /// FirstName
+        /// </summary>
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
 
-        public string Name { get; set; }
+        /// <summary>
+        /// LastName
+        /// </summary>
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
 
-        public int DayOffset { get; set; }
+        /// <summary>
+        /// Email
+        /// </summary>
+        [JsonProperty("email")]
+        public string Email { get; set; }
 
-        public int WindowMinus { get; set; }
+        /// <summary>
+        /// Phone
+        /// </summary>
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
 
-        public int WindowPlus { get; set; }
+        /// <summary>
+        /// Role
+        /// </summary>
+        [JsonProperty("role")]
+        public string Role { get; set; }
 
-        public bool RequiredFlag { get; set; }
+        /// <summary>
+        /// ActionDate
+        /// </summary>
+        [JsonProperty("actionDate")]
+        public DateTime ActionDate { get; set; }
 
-        public int SortOrder { get; set; }
+        /// <summary>
+        /// CompanyId
+        /// </summary>
+        [JsonProperty("companyId")]
+        public int CompanyId { get; set; }
 
-        public int UserName { get; set; }
+        [JsonProperty("siteId")]
+        public int SiteId { get; set; }
 
-        public DateTime? ActionDateTime { get; set; }
+        [JsonProperty("monitorName")]
+        public string MonitorName => $"{FirstName} {LastName}";
 
-        public bool Active { get; set; }
-
-        public DateTime? LastUpdateAt { get; set; }
-
-        public int? CompanyId { get; set; }
-
-        public int? SiteId { get; set; }
-
-        public string Comment { get; set; }
-
-        public STDVisitDefinition()
+        /// <summary>
+        /// STDMonitor
+        /// </summary>
+        public STDMonitor()
         {
-            Name = "";         
+            FirstName = "";
 
-            Comment = "";
+            LastName = "";
+
+            Email = "";
+
+            Phone = "";
+
+            Role = "";
+
         }
 
     }
+
 }
+

@@ -21,5 +21,11 @@
         public int SortOrder { get; set; } = 0;
 
         public string? Comment { get; set; } = string.Empty;
+
+        public int DependencyOf { get; set; } = 0;
+
+        public decimal Cost { get; set; } = 0;
+
+        public int VisitType { get; set; } = 0;
     }
 }

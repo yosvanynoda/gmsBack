@@ -92,5 +92,7 @@ namespace GMS.Business.CMN
 
         Task<BaseResponse> GetDeviationDropList(string cn, GeneralRequest request);
 
+        Task<BaseResponse> GetTeamDropList(string cn, GeneralSiteRequest request);
+
     }
 }

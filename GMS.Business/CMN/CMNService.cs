@@ -1135,5 +1135,35 @@ namespace GMS.Business.CMN
                 Success = result.Result >= 0,
             };
         }
+
+        public async Task<BaseResponse> GetTeamDropList(string cn, GeneralSiteRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetTeamDropList(cn, request.CompanyId, request.SiteId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No Deviation found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result?.Data,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
     }
 }

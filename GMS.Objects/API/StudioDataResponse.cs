@@ -1,8 +1,31 @@
-﻿using Newtonsoft.Json;
+using GMS.Objects.STD;
+using Newtonsoft.Json;
+using System.Runtime.Intrinsics.Arm;
 
-namespace GMS.DBModels.STD
+namespace GMS.Objects.API
 {
-    public class STDGeneralData
+    public class StudioDataResponse
+    {
+        [JsonProperty("header")]
+        public StudioHeader? Header { get; set; }
+
+        [JsonProperty("monitors")]
+        public List<MonitorBaseResponse>? Monitors { get; set; }
+
+        [JsonProperty("protocol")]
+        public List<ProtocolBaseResponse>? Protocol { get; set; }
+
+        [JsonProperty("arms")]
+        public List<ArmsBaseResponse>? Arms { get; set; }
+
+        [JsonProperty("documentation")]
+        public List<StudioDocBaseResponse>? Documentation { get; set; }
+
+        [JsonProperty("visitDefinition")]
+        public List<STDVisitBaseResponse>? VisitDefinition { get; set; }
+    }
+
+    public class StudioHeader
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -78,6 +101,5 @@ namespace GMS.DBModels.STD
 
         [JsonProperty("diseaseId")]
         public int DiseaseId { get; set; }
-
     }
 }

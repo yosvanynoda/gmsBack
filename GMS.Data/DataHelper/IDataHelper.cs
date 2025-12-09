@@ -106,11 +106,23 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> CMN_GetDeviationDropList(string cn, int companyId);
 
+        Task<PayloadResult?> CMN_GetTeamDropList(string cn, int companyId, int siteId);
+
         #endregion
 
         #region PRJ...
 
         Task<BaseResult> PRJ_CreateStudioSubject(string cn, int subjectId, int studioId, DateTime startTime, DateTime endTime, int companyId);
+
+        Task<BaseResult> PRJ_CreateVisit(string cn, int visitId, int subjectId, int studioId, int staffId, DateTime visitDate, string notes);
+
+        Task<BaseResult> PRJ_CancelVisit(string cn, int visitId, int subjectId, int studioId, string notes);
+
+        Task<PayloadResult> PRJ_GetVisitSchedule (string cn, int companyId, int siteId, DateTime startDate , DateTime endDate);
+
+        Task<BaseResult> PRJ_CreateSubjectChecking(string cn, int visitId, int subjectId, int studioId);
+
+        Task<BaseResult> PRJ_CreateSubjectVisitCompleted(string cn, int visitId, int subjectId, int studioId);
 
         #endregion
 
