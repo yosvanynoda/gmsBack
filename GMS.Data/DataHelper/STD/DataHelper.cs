@@ -3,6 +3,7 @@ using GMS.DBModels.CMN;
 using GMS.DBModels.Helper;
 using GMS.DBModels.STD;
 using GMS.DBModels.VLT;
+using GMS.Objects.STD;
 using System.ComponentModel.Design;
 using System.Data;
 
@@ -1105,7 +1106,7 @@ namespace GMS.Data.DataHelper
                 var result = new
                 {
                     header = query.GridReader.Read<STDGeneralData>()?.FirstOrDefault(),
-                    monitors = query.GridReader.Read<STDMonitor>()?.ToList(),
+                    monitors = query.GridReader.Read<MonitorBaseResponse>()?.ToList(),
                     protocol = query.GridReader.Read<STDProtocol>()?.ToList(),
                     arms = query.GridReader.Read<STDArms>()?.ToList(),
                     documentation = query.GridReader.Read<STDDocumentation>()?.ToList(),
