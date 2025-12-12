@@ -498,18 +498,18 @@ namespace GMS.Services.Controllers.v1.STD
 
         [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/getstaffdroplist")]
-        public async Task<IActionResult> GetStaffDropList(int companyId, int siteId)
+        public async Task<IActionResult> GetStaffDropList(StudioRequest request)
         {
             try
             {
-                if (companyId == null | siteId == null)
+                if (request == null)
                 {
                     return BadRequest("Invalid request data.");
                 }
 
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
-                var result = await _service.GetStaffDropList(cn, companyId, siteId);
+                var result = await _service.GetStaffDropList(cn, request.CompanyId, request.SiteId);
 
                 if (!result.Success)
                 {

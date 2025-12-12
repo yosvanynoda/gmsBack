@@ -7,7 +7,7 @@ namespace GMS.Objects.STD
         /// <summary>
         /// Id
         /// </summary>
-        [JsonProperty("monitorId")]
+       // [JsonProperty("monitorId")]
         public int Id { get; set; }
 
         /// <summary>
