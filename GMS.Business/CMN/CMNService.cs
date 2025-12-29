@@ -257,6 +257,50 @@ namespace GMS.Business.CMN
             };
         }
 
+        public async Task<BaseResponse> CreateVaccine(string cn, CreateVaccineRequest request)
+        {
+
+            if (request == null || string.IsNullOrWhiteSpace(request.VaccineName))
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Vaccine name cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_CreateVaccine(cn, request.VaccineId, request.VaccineName, request.VaccineDose, request.CompanyId, request.Username, request.Action);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> CreateSurgical(string cn, CreateSurgicalRequest request)
+        {
+
+            if (request == null || string.IsNullOrWhiteSpace(request.SurgicalName))
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Surgical name cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_CreateSurgical(cn, request.SurgicalId, request.SurgicalName, request.SurgicalDose, request.CompanyId, request.Username, request.Action);
+
+            return new BaseResponse
+            {
+                Data = null,
+                Message = result.ResultMessage,
+                Success = result.Result >= 0,
+            };
+        }
+
         public async Task<BaseResponse> CreateRelationType(string cn, CreateRelationTypeRequest request)
         {
 
@@ -825,6 +869,66 @@ namespace GMS.Business.CMN
                 Data = result?.Data,
                 Message = result.ResultMessage,
                 Success = result.Result >= 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetVaccineList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetVaccineList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No Vaccine found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result.Data,
+                Message = result.ResultMessage,
+                Success = result?.Result == 0,
+            };
+        }
+
+        public async Task<BaseResponse> GetSurgicalList(string cn, GeneralRequest request)
+        {
+            if (request == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Request cannot be empty."
+                };
+            }
+
+            var result = await _dataHelper.CMN_GetSurgicalList(cn, request.CompanyId);
+
+            if (result == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "No Surgical found."
+                };
+            }
+
+            return new BaseResponse
+            {
+                Data = result.Data,
+                Message = result.ResultMessage,
+                Success = result?.Result == 0,
             };
         }
 

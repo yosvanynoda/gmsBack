@@ -68,8 +68,9 @@
 
         public int Flag { get; set; }
 
-        public string? FlagReason { get; set; }      
+        public string? FlagReason { get; set; }
 
+        public int Smoker { get; set; }
 
     }
 }

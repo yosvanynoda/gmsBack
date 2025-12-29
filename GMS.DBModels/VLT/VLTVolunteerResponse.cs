@@ -14,6 +14,10 @@
 
         public List<VLTMedication> Medications { get; set; }
 
+        public List<VLTVaccine> Vaccines { get; set; }
+
+        public List<VLTSurgical> Surgicals { get; set; }
+
         public VLTVolunteerResponse()
         {
             Header = new();
@@ -27,6 +31,10 @@
             Diseases = [];
 
             Medications = [];
+
+            Vaccines = [];
+
+            Surgicals = [];
         }
     }
 }

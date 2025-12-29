@@ -35,8 +35,12 @@ namespace GMS.Business.VLT
 
             var dtMed = Helper.HelperUDT.ListToDataTable(request.VolunteerMedicationData);
 
+            var dtVac = Helper.HelperUDT.ListToDataTable(request.VolunteerVaccineData);
+
+            var dtSurg = Helper.HelperUDT.ListToDataTable(request.VolunteerSurgicalData);
+
             var result = await _dataHelper.VLT_CreateVolunteerData(cn, dtGD, dtAllergy, dtDisease,
-                dtDoc, dtEmergc, dtMed);
+                dtDoc, dtEmergc, dtMed, dtVac, dtSurg);
 
             return new BaseResponse
             {
@@ -71,13 +75,17 @@ namespace GMS.Business.VLT
 
             var dtMed = Helper.HelperUDT.ListToDataTable(request.VolunteerMedicationData);
 
+            var dtVac = Helper.HelperUDT.ListToDataTable(request.VolunteerVaccineData);
+
+            var dtSurg = Helper.HelperUDT.ListToDataTable(request.VolunteerSurgicalData);
+
             // Get CompanyId, SiteId, and Username from the first general data record
             int companyId = 1;
             int siteId =  1;
             int username = 1;
 
             var result = await _dataHelper.VLT_UpdateVolunteerData(cn, dtGD, dtAllergy, dtDisease,
-                dtDoc, dtEmergc, dtMed, companyId, siteId, username);
+                dtDoc, dtEmergc, dtMed, dtVac, dtSurg, companyId, siteId, username);
 
             return new BaseResponse
             {

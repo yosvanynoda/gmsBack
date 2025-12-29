@@ -44,6 +44,10 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> CMN_CreateMedication(string cn, int medicationId, string medicationName, string medicationDose, int companyId, int username, int action);
 
+        Task<BaseResult> CMN_CreateVaccine(string cn, int vaccineId, string vaccineName, string vaccineDose, int companyId, int username, int action);
+
+        Task<BaseResult> CMN_CreateSurgical(string cn, int surgicalId, string surgicalName, string surgicalDose, int companyId, int username, int action);
+
         Task<BaseResult> CMN_CreateRelationType(string cn, int id, string relationType, int companyId, int username, int action);
 
         Task<BaseResult> CMN_CreateStaffDocument(string cn, DataTable cmnStaffDocUDT, int staffId);
@@ -59,6 +63,10 @@ namespace GMS.Data.DataHelper
         Task<PayloadResult?> CMN_GetAllergyList(string cn, int companyId);
 
         Task<PayloadResult?> CMN_GetMedicationList(string cn, int companyId);
+
+        Task<PayloadResult?> CMN_GetVaccineList(string cn, int companyId);
+
+        Task<PayloadResult?> CMN_GetSurgicalList(string cn, int companyId);
 
         Task<PayloadResult?> CMN_GetRoleTypeList(string cn, int companyId);
 
@@ -197,10 +205,10 @@ namespace GMS.Data.DataHelper
         #region VLT....
 
         Task<BaseResult> VLT_CreateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
-                DataTable dtDoc, DataTable dtEmergc, DataTable dtMed);
+                DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, DataTable dtVac, DataTable dtSurg);
 
         Task<BaseResult> VLT_UpdateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
-              DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, int companyId, int siteId, int username);
+              DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, DataTable dtVac, DataTable dtSurg, int companyId, int siteId, int username);
 
         Task<PayloadResult?> VLT_GetVolunteerList(string cn, int companyId, int siteId);
 

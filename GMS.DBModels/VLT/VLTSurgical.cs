@@ -1,10 +1,12 @@
 ﻿namespace GMS.DBModels.VLT
 {
-    public class VLTAllergy
+    public class VLTSurgical
     {
-        public int AllergyId { get; set; }
+        public int SurgicalId { get; set; }
 
-        public string Allergy { get; set; } = "";
+        public string DrogName { get; set; } = "";
+
+        public string DrogDose { get; set; } = "";
 
         public string StartDate { get; set; } = "";
 
@@ -15,7 +17,5 @@
         public int CompanyId { get; set; }
 
         public int SiteId { get; set; }
-
-        public bool Anaphylaxis { get; set; }
     }
 }
