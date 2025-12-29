@@ -13,6 +13,8 @@
 
         //public int StudyId { get; set; }
 
+        public int Id { get; set; }
+
         public string SponsorName { get; set; } = "";
 
         public int SponsorId { get; set; }

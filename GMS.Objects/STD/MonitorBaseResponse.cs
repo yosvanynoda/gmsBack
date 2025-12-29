@@ -7,7 +7,7 @@ namespace GMS.Objects.STD
         /// <summary>
         /// Id
         /// </summary>
-        [JsonProperty("monitorId")]
+       // [JsonProperty("monitorId")]
         public int Id { get; set; }
 
         /// <summary>
@@ -52,28 +52,15 @@ namespace GMS.Objects.STD
         [JsonProperty("companyId")]
         public int CompanyId { get; set; }
 
-
-        /// <summary>
-        /// CompanyId
-        /// </summary>
         [JsonProperty("siteId")]
         public int SiteId { get; set; }
-
-        /// <summary>
-        /// StudioName
-        /// </summary>
-        [JsonProperty("studioName")]
-        public string StudioName { get; set; }
-
-        [JsonProperty("studyId")]
-        public int StudyId { get; set; }
-
-        [JsonProperty("sponsorName")]
-        public string SponsorName { get; set; }
 
         [JsonProperty("monitorName")]
         public string MonitorName => $"{FirstName} {LastName}";
 
+        /// <summary>
+        /// STDMonitor
+        /// </summary>
         public MonitorBaseResponse()
         {
             FirstName = "";
@@ -85,10 +72,6 @@ namespace GMS.Objects.STD
             Phone = "";
 
             Role = "";
-
-            StudioName = "";
-
-            SponsorName = "";
 
         }
     }

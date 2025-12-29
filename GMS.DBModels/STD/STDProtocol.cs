@@ -40,7 +40,7 @@ namespace GMS.DBModels.STD
         public int SiteId { get; set; }
 
         [JsonProperty("notes")]
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         [JsonProperty("startDate")]
         public DateTime? StartDate { get; set; }
