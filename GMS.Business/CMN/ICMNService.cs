@@ -28,6 +28,10 @@ namespace GMS.Business.CMN
 
         Task<BaseResponse> CreateMedication(string cn, CreateMedicationRequest request);
 
+        Task<BaseResponse> CreateVaccine(string cn, CreateVaccineRequest request); 
+
+        Task<BaseResponse> CreateSurgical(string cn, CreateSurgicalRequest request);
+
         Task<BaseResponse> CreateStaff(string cn, CreateStaffRequest request);
 
         Task<BaseResponse> CreateStaffDocument(string cn, CreateStaffDocumentRequest request);
@@ -43,6 +47,10 @@ namespace GMS.Business.CMN
         Task<BaseResponse> GetDiseaseList(string cn, GeneralRequest request);
 
         Task<BaseResponse> GetMedicationList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetVaccineList(string cn, GeneralRequest request);
+
+        Task<BaseResponse> GetSurgicalList(string cn, GeneralRequest request);
 
         Task<BaseResponse> GetRoleTypeList(string cn, GeneralRequest request);
 

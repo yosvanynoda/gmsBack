@@ -8,7 +8,7 @@ namespace GMS.Data.DataHelper
     public partial class DataHelper : IDataHelper
     {
         public async Task<BaseResult> VLT_CreateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
-                DataTable dtDoc, DataTable dtEmergc, DataTable dtMed)
+                DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, DataTable dtVac, DataTable dtSurg)
         {
             try
             {
@@ -43,6 +43,10 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@VLTMedications", dtMed.AsTableValuedParameter());
 
                 parameters.Add("@VLTDocuments", dtDoc.AsTableValuedParameter());
+
+                parameters.Add("@VLTVaccines", dtVac.AsTableValuedParameter());
+
+                parameters.Add("@VLTSurgicals", dtSurg.AsTableValuedParameter());
 
                 parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -79,7 +83,7 @@ namespace GMS.Data.DataHelper
         }
 
         public async Task<BaseResult> VLT_UpdateVolunteerData(string cn, DataTable dtGd, DataTable dtAllergy, DataTable dtDisease,
-               DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, int companyId, int siteId, int username)
+               DataTable dtDoc, DataTable dtEmergc, DataTable dtMed, DataTable dtVac, DataTable dtSurg, int companyId, int siteId, int username)
         {
             try
             {
@@ -114,6 +118,10 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@VLTMedications", dtMed.AsTableValuedParameter());
 
                 parameters.Add("@VLTDocuments", dtDoc.AsTableValuedParameter());
+
+                parameters.Add("@VLTVaccines", dtVac.AsTableValuedParameter());
+
+                parameters.Add("@VLTSurgicals", dtSurg.AsTableValuedParameter());
 
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 
@@ -218,6 +226,8 @@ namespace GMS.Data.DataHelper
                     payload.Allergies = result.GridReader.Read<VLTAllergy>().ToList() ?? [];
                     payload.Diseases = result.GridReader.Read<VLTDisease>().ToList() ?? [];
                     payload.Medications = result.GridReader.Read<VLTMedication>().ToList() ?? [];
+                    payload.Vaccines = result.GridReader.Read<VLTVaccine>().ToList() ?? [];
+                    payload.Surgicals = result.GridReader.Read<VLTSurgical>().ToList() ?? [];
 
                     response.Result = 0;
                     response.ResultMessage = "Success";

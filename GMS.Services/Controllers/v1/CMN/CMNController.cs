@@ -256,6 +256,66 @@ namespace GMS.Services.Controllers.V1.CMN
         }
 
         [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/createvaccine")]
+        public async Task<IActionResult> CreateVaccine(CreateVaccineRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.CreateVaccine(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/createsurgical")]
+        public async Task<IActionResult> CreateSurgical(CreateSurgicalRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.CreateSurgical(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
         [Route("api/v{version:apiVersion}/[controller]/createrace")]
         public async Task<IActionResult> CreateRace(CreateRaceRequest request)
         {
@@ -604,6 +664,66 @@ namespace GMS.Services.Controllers.V1.CMN
                 var cn = _config.GetConnectionString("gmsCS") ?? "";
 
                 var result = await _service.GetMedicationList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getvaccinelist")]
+        public async Task<IActionResult> GetVaccineList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetVaccineList(cn, request);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/v{version:apiVersion}/[controller]/getsurgicallist")]
+        public async Task<IActionResult> GetSurgicalList(GeneralRequest request)
+        {
+            try
+            {
+                if (request == null)
+                {
+                    return BadRequest("Invalid request data.");
+                }
+
+                var cn = _config.GetConnectionString("gmsCS") ?? "";
+
+                var result = await _service.GetSurgicalList(cn, request);
 
                 if (!result.Success)
                 {

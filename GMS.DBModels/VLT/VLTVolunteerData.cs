@@ -57,10 +57,15 @@
         public int? CompanyId { get; set; }
 
         public int? SiteId { get; set; }
+
         public int? RaceId { get; set; }
+
         public int? EthnicityId { get; set; }
+
         public int? GenderId { get; set; }
+
         public int? LanguageId { get; set; }
+
         public int? SexId { get; set; }
 
         public int Flag { get; set; }
@@ -68,6 +73,8 @@
         public string? FlagReason { get; set; }
 
         public int? CurrentStatusId { get; set; }
+
+        public int? Smoker { get; set; }
 
     }
 }

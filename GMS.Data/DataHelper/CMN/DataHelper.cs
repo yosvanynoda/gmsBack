@@ -567,6 +567,148 @@ namespace GMS.Data.DataHelper
 
         }
 
+        public async Task<BaseResult> CMN_CreateVaccine(string cn, int vaccineId, string vaccineName, string vaccineDose, int companyId, int username, int action)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (string.IsNullOrEmpty(vaccineName))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Vaccine name is null or empty."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@Id", vaccineId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@VaccineName", vaccineName, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@VaccineDose", vaccineDose, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@UserName", username, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Action", action, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "CMN_CrudVaccine", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Vaccine created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+
+        }
+
+        public async Task<BaseResult> CMN_CreateSurgical(string cn, int surgicalId, string surgicalName, string surgicalDose, int companyId, int username, int action)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cn))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Database object is null."
+                    };
+                }
+
+                if (string.IsNullOrEmpty(surgicalName))
+                {
+                    return new BaseResult
+                    {
+                        Result = -99,
+                        ResultMessage = "Surgical name is null or empty."
+                    };
+                }
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@Id", surgicalId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@SurgicalName", surgicalName, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@SurgicalDose", surgicalDose, DbType.String, ParameterDirection.Input, size: 150);
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@UserName", username, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Action", action, DbType.Int32, ParameterDirection.Input);
+
+                parameters.Add("@Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                parameters.Add("@ResultMessage", dbType: DbType.String, direction: ParameterDirection.Output, size: 150);
+
+                var result = await ExecuteStoreProcedureWithResult(cn, "CMN_CrudSurgical", parameters);
+
+                if (result.Result >= 0)
+                {
+                    return new BaseResult
+                    {
+                        Result = 0,
+                        ResultMessage = "Surgical created successfully."
+                    };
+                }
+                else
+                {
+                    return new BaseResult
+                    {
+                        Result = result.Result,
+                        ResultMessage = result.ResultMessage
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return new BaseResult
+                {
+                    Result = -99,
+                    ResultMessage = ex.Message
+                };
+            }
+
+        }
+
         public async Task<BaseResult> CMN_CreateSite(string cn, int siteId, string siteName, string address, string contact, string phone, string email, string code, int companyId, int username, int action)
         {
             try
@@ -1305,6 +1447,78 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 
                 var result = await QueryStoreProcedure<CMNMedication>(cn, "CMN_GetMedicationList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<PayloadResult?> CMN_GetVaccineList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<CMNVaccine>(cn, "CMN_GetVaccineList", parameters, 0);
+
+                if (result != null && result.Any())
+                {
+                    response.Result = 0;
+                    response.ResultMessage = "Success";
+                    response.Data = result.ToList();
+                }
+                else
+                {
+                    response.Result = -99;
+                    response.ResultMessage = "No data found.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                response.Result = -99;
+                response.ResultMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<PayloadResult?> CMN_GetSurgicalList(string cn, int companyId)
+        {
+            var response = new PayloadResult();
+
+            try
+            {
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
+
+                var result = await QueryStoreProcedure<CMNSurgical>(cn, "CMN_GetSurgicalList", parameters, 0);
 
                 if (result != null && result.Any())
                 {
