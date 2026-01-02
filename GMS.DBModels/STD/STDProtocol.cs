@@ -7,7 +7,7 @@ namespace GMS.DBModels.STD
     /// </summary>
     public class STDProtocol
     {
-        [JsonProperty("id")]
+        
         public int Id { get; set; }
 
         public string Protocol { get; set; }
