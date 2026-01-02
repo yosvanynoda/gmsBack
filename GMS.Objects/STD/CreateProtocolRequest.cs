@@ -25,6 +25,8 @@
 
         public DateTime? EndDate { get; set; }
 
+        public bool Active { get; set; }
+
         public CreateProtocolRequest()
         {
             Protocol = "";
