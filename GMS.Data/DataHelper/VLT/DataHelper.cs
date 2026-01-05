@@ -288,7 +288,8 @@ namespace GMS.Data.DataHelper
 
         public async Task<PayloadResult?> VLT_SearchVolunteersForStudy(string cn, int companyId, int siteId, int? minAge,
             int? maxAge, List<int>? genderIds, List<int>? raceIds, List<int>? ethnicityIds, List<int>? languageIds,
-            string? currentStatus, bool excludeAlreadyAssigned, int? studyId, List<int>? diseaseIds, bool? healthy)
+             List<int>? currentStatus, List<int>? vaccineIds, List<int>? surgicalIds,   bool excludeAlreadyAssigned, 
+             int? studyId, List<int>? diseaseIds, bool? healthy)
         {
             var response = new PayloadResult();
 
@@ -307,8 +308,10 @@ namespace GMS.Data.DataHelper
                 parameters.Add("@EthnicityIds", CreateIntListDataTable(ethnicityIds).AsTableValuedParameter("dbo.IntListTableType"));
                 parameters.Add("@LanguageIds", CreateIntListDataTable(languageIds).AsTableValuedParameter("dbo.IntListTableType"));
                 parameters.Add("@DiseaseIds", CreateIntListDataTable(diseaseIds).AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@CurrentStatus", CreateIntListDataTable(currentStatus).AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@VaccinesIds", CreateIntListDataTable(diseaseIds).AsTableValuedParameter("dbo.IntListTableType"));
+                parameters.Add("@SurgicalsIds", CreateIntListDataTable(diseaseIds).AsTableValuedParameter("dbo.IntListTableType"));
 
-                parameters.Add("@CurrentStatus", currentStatus, DbType.String, ParameterDirection.Input, size: 50);
                 parameters.Add("@ExcludeAlreadyAssigned", excludeAlreadyAssigned, DbType.Boolean, ParameterDirection.Input);
                 parameters.Add("@StudyId", studyId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Healthy", healthy, DbType.Boolean, ParameterDirection.Input);

@@ -218,7 +218,8 @@ namespace GMS.Data.DataHelper
 
         Task<PayloadResult?> VLT_SearchVolunteersForStudy(string cn, int companyId, int siteId, int? minAge,
             int? maxAge, List<int>? genderIds, List<int>? raceIds, List<int>? ethnicityIds, List<int>? languageIds,
-            string? currentStatus, bool excludeAlreadyAssigned, int? studyId, List<int>? diseaseIds, bool? healthy);
+             List<int>? currentStatus, List<int>? vaccineIds, List<int>? surgicalIds,  bool excludeAlreadyAssigned, 
+             int? studyId, List<int>? diseaseIds, bool? healthy);
 
         Task<BaseResult> VLT_PreAssignVolunteersToStudy(string cn, int companyId, int siteId, int studyId,
             DataTable volunteerIds, int username);

@@ -13,8 +13,9 @@ namespace GMS.Objects.VLT
         public List<int>? EthnicityIds { get; set; }
         public List<int>? LanguageIds { get; set; }
         public List<int>? DiseaseIds { get; set; }
-
-        public string? CurrentStatus { get; set; }
+        public List<int>? CurrentStatus { get; set; }
+        public List<int>? VaccinesIds { get; set; }
+        public List<int>? SurgicalsIds { get; set; }
         public bool ExcludeAlreadyAssigned { get; set; }
         public int? StudyId { get; set; }
         public bool? Healthy { get; set; }
