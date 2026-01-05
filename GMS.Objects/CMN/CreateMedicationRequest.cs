@@ -2,9 +2,7 @@
 {
     public class CreateMedicationRequest
     {
-        public string MedicationName { get; set; } = string.Empty;
-
-        public string MedicationDose { get; set; } = string.Empty;
+        public string MedicationName { get; set; } = string.Empty;       
 
         public int MedicationId { get; set; } = 0;
 

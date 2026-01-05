@@ -42,7 +42,7 @@ namespace GMS.Data.DataHelper
 
         Task<BaseResult> CMN_CreateLanguage(string cn, int id, string language, string comment, int companyId, int username, int action);
 
-        Task<BaseResult> CMN_CreateMedication(string cn, int medicationId, string medicationName, string medicationDose, int companyId, int username, int action);
+        Task<BaseResult> CMN_CreateMedication(string cn, int medicationId, string medicationName, int companyId, int username, int action);
 
         Task<BaseResult> CMN_CreateVaccine(string cn, int vaccineId, string vaccineName, string vaccineDose, int companyId, int username, int action);
 

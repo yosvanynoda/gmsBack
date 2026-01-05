@@ -4,9 +4,7 @@
     {
         public int MedicationId { get; set; }
 
-        public string MedicationName { get; set; }
-
-        public string MedicationDose { get; set; }
+        public string MedicationName { get; set; }        
 
         public int? Companyid { get; set; }
 
@@ -21,8 +19,7 @@
         public MedicationBaseResponse()
         {
             MedicationName = "";
-
-            MedicationDose = "";
+           
         }
     }
 }
