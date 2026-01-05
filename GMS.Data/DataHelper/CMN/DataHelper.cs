@@ -496,7 +496,7 @@ namespace GMS.Data.DataHelper
             }
         }
 
-        public async Task<BaseResult> CMN_CreateMedication(string cn, int medicationId, string medicationName, string medicationDose, int companyId, int username, int action)
+        public async Task<BaseResult> CMN_CreateMedication(string cn, int medicationId, string medicationName, int companyId, int username, int action)
         {
             try
             {
@@ -522,9 +522,7 @@ namespace GMS.Data.DataHelper
 
                 parameters.Add("@Id", medicationId, DbType.Int32, ParameterDirection.Input);
 
-                parameters.Add("@MedicationName", medicationName, DbType.String, ParameterDirection.Input, size: 150);
-
-                parameters.Add("@MedicationDose", medicationDose, DbType.String, ParameterDirection.Input, size: 150);
+                parameters.Add("@MedicationName", medicationName, DbType.String, ParameterDirection.Input, size: 150);               
 
                 parameters.Add("@CompanyId", companyId, DbType.Int32, ParameterDirection.Input);
 

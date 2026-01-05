@@ -247,7 +247,7 @@ namespace GMS.Business.CMN
                 };
             }
 
-            var result = await _dataHelper.CMN_CreateMedication(cn, request.MedicationId, request.MedicationName, request.MedicationDose, request.CompanyId, request.Username, request.Action);
+            var result = await _dataHelper.CMN_CreateMedication(cn, request.MedicationId, request.MedicationName, request.CompanyId, request.Username, request.Action);
 
             return new BaseResponse
             {
