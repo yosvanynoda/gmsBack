@@ -207,6 +207,8 @@ namespace GMS.Business.VLT
                 request.EthnicityIds,
                 request.LanguageIds,
                 request.CurrentStatus,
+                request.VaccinesIds,
+                request.SurgicalsIds,
                 request.ExcludeAlreadyAssigned,
                 request.StudyId,
                 request.DiseaseIds,
