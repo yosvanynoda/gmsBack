@@ -44,5 +44,10 @@
 
         public string SubjectName { get; set; }
 
+        public DateTime WindowStart { get; set; }
+
+        public DateTime WindowEnd { get; set; }
+
+        public int DependencyOf { get; set; }
     }
 }

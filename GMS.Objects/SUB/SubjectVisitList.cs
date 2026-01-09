@@ -40,5 +40,11 @@ namespace GMS.Objects.SUB
 
         public string SubjectName { get; set; } = string.Empty;
 
+        public DateTime WindowStart { get; set; }
+
+        public DateTime WindowEnd { get; set; }
+
+        public int DependencyOf { get; set; }
+
     }
 }
