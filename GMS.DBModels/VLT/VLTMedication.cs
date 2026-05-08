@@ -8,6 +8,10 @@
 
         public string DrogDose { get; set; } = "";
 
+        public string DrogUnit { get; set; } = "";
+
+        public string DrogFrequency { get; set; } = "";
+
         public string StartDate { get; set; } = "";
 
         public string? EndDate { get; set; } = "";
